@@ -45,7 +45,9 @@ class Cart {
             this.showNotification({ nama: 'Produk tidak dikenal' }, 'error');
             return false;
         }
-
+		console.log('PRODUCT DI ADD:', product);
+		console.log('PRODUCT GAMBAR:', product.gambar);
+		console.log('PRODUCT GAMBAR.UTAMA:', product.gambar?.utama);
         if (!varian || !varian.tipe) {
             console.error('Varian tidak valid');
             this.showNotification({ nama: 'Pilih varian terlebih dahulu' }, 'error');
@@ -246,17 +248,35 @@ class Cart {
 			console.error('Item tidak valid', item);
 			return;
 		}
-		
+
+		// TAMBAHKAN INI - DEBUG ITEM
+		console.log('ITEM DI NOTIFICATION:', item);
+		console.log('ITEM TYPE:', typeof item);
+		console.log('ITEM GAMBAR:', item.gambar);
+		console.log('ITEM.GAMBAR TYPE:', typeof item.gambar);
+
 		// Hapus notifikasi sebelumnya jika ada
 		const existingToast = document.querySelector('.toast-notification');
 		if (existingToast) {
 			existingToast.remove();
 		}
 
-		// Pastikan gambar ada
-		const gambar = (item.gambar || 
-					   item.product?.gambar?.utama || 
-					   DEFAULT_PRODUCT_IMAGE);
+		// PASTIKAN GAMBAR ADALAH STRING
+		let gambar = DEFAULT_PRODUCT_IMAGE;
+		
+		if (item.gambar) {
+			if (typeof item.gambar === 'string') {
+				gambar = item.gambar;
+				console.log('Gambar dari item.gambar (string):', gambar);
+			} else {
+				console.error('item.gambar BUKAN string:', item.gambar);
+			}
+		} else if (item.product?.gambar?.utama) {
+			if (typeof item.product.gambar.utama === 'string') {
+				gambar = item.product.gambar.utama;
+				console.log('Gambar dari product.gambar.utama:', gambar);
+			}
+		}
 		
 		const nama = item.nama || item.product?.nama || 'Produk';
 
@@ -284,9 +304,12 @@ class Cart {
 		}
 		
 		// Isi toast
+		const gambarAman = (gambar && typeof gambar === 'string') ? gambar : DEFAULT_PRODUCT_IMAGE;
+
 		toast.innerHTML = `
 			<div class="toast-content" style="background: ${bgColor}">
-				<img src="${gambar}" alt="${nama}" class="toast-image" onerror="this.src='${DEFAULT_PRODUCT_IMAGE}'">
+				<img src="${gambarAman}" alt="${nama}" class="toast-image" 
+					 onerror="this.onerror=null; this.src='${DEFAULT_PRODUCT_IMAGE}'; console.log('Gambar error, pakai default');">
 				<div class="toast-text">
 					<div class="toast-title">${nama}</div>
 					<div class="toast-message">
