@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inti Media Printing - Toko online hard cover berkualitas. Tersedia hard cover bludru, glossy, diamond, RCP dengan harga terjangkau.">
+    <meta name="keywords" content="hard cover, bludru, glossy, diamond, RCP, percetakan, jilid buku">
+    <meta name="author" content="Inti Media Printing">
+    
+    <!-- Open Graph untuk sosial media -->
+    <meta property="og:title" content="IMPrintingOnline - Checkout">
+    <meta property="og:description" content="Selesaikan pesanan Anda dengan mudah">
+    <meta property="og:image" content="URL_GAMBAR_UTAMA">
+    <title>Checkout - IMPrintingOnline</title>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKC324B7FX"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-FKC324B7FX');
+	</script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<nav class="navbar">
+		<div class="container-header">
+			<div class="nav-brand">
+				<a href="index.html">
+					<img src="assets/images/logo.png" alt="IMPrintingOnline Logo" class="nav-logo">
+					<span>Inti Media Printing</span>
+				</a>
+			</div>
+			
+			<!-- Cart Icon - Pindahkan ke sebelum toggle -->
+			<div class="cart-icon" id="cartIcon" style="cursor: pointer;">
+				<i class="fas fa-shopping-cart"></i>
+				<span class="cart-count">0</span>
+			</div>
+			
+			<!-- Mobile Menu Toggle -->
+			<div id="mobileMenuToggle" class="mobile-menu-toggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			
+			<div class="search-section">
+				<div class="search-container">
+					<input type="text" class="search-input" id="searchInputHome" placeholder="Cari produk.....">
+					<button class="search-btn" onclick="searchProducts()">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</div>
+			
+			<ul class="nav-menu" id="navMenu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="products.html">Products</a></li>
+				<li><a href="about.html">About Us</a></li>
+			</ul>
+		</div>
+	</nav>
+
+    <div class="container">
+        <h1 class="page-title">
+            <i class="fas fa-shopping-bag"></i> Checkout
+        </h1>
+        
+        <div class="checkout-container">
+            <!-- Form Pembeli -->
+            <div class="checkout-card">
+                <h3 style="margin-bottom: 20px; color: var(--primary);">
+                    <i class="fas fa-truck"></i> Informasi Pengiriman
+                </h3>
+                
+                <div class="form-group">
+                    <label>Nama Lengkap <span style="color: var(--danger);">*</span></label>
+                    <input type="text" id="nama" placeholder="Masukkan nama lengkap" value="">
+                    <div class="error-message" id="errorNama"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nomor WhatsApp <span style="color: var(--danger);">*</span></label>
+                    <input type="tel" id="noWa" placeholder="Contoh: 08123456789" value="">
+                    <div class="error-message" id="errorWa"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Alamat Lengkap <span style="color: var(--danger);">*</span></label>
+                    <textarea id="alamat" rows="3" placeholder="Jalan, RT/RW, Kelurahan, Kecamatan, Kota, Kode Pos"></textarea>
+                    <div class="error-message" id="errorAlamat"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Catatan (opsional)</label>
+                    <textarea id="catatan" rows="2" placeholder="Ukuran, warna, request khusus, atau catatan lainnya"></textarea>
+                </div>
+            </div>
+            
+            <!-- Ringkasan Order -->
+            <div class="checkout-card">
+                <h3 style="margin-bottom: 20px; color: var(--primary);">
+                    <i class="fas fa-shopping-cart"></i> Ringkasan Belanja
+                </h3>
+                
+                <div id="cartItems" class="cart-items"></div>
+                
+                <div class="total-row">
+                    <span>Total</span>
+                    <span id="totalHarga">Rp 0</span>
+                </div>
+                
+                <button class="btn-whatsapp" onclick="validateAndCheckout()">
+                    <i class="fab fa-whatsapp"></i>
+                    Checkout via WhatsApp
+                </button>
+                
+                <p style="font-size: 12px; color: #777; text-align: center; margin-top: 15px">
+                    <i class="fas fa-lock"></i> Data Anda aman dan terenkripsi
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Inti Media Printing - All Rights Reserved</p>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // ========== FUNGSI UTILITY ==========
+        
+        // Fungsi untuk mendapatkan total item (dari cart + beli langsung)
+        function getTotalCartItems() {
+            let total = 0;
+            
+            // Hitung dari cart normal
+            if (typeof cart !== 'undefined') {
+                total += cart.getTotalItems();
+            }
+            
+            // Hitung dari beli langsung (jika ada)
+            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
+            if (checkoutItem && checkoutItem.quantity) {
+                total += checkoutItem.quantity;
+            }
+            
+            return total;
+        }
+
+        // Fungsi untuk update icon cart dengan total yang benar
+        function updateCartIconCount() {
+            const total = getTotalCartItems();
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = total;
+                el.style.display = total > 0 ? 'flex' : 'none';
+            });
+            console.log('Cart icon updated:', total);
+        }
+
+        // ========== FUNGSI DISPLAY CART ==========
+        
+        function displayCart() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('totalHarga');
+            
+            if (!container || !totalEl) return;
+            
+            // Cek apakah dari beli langsung
+            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
+            
+            if (checkoutItem) {
+                // ========== BELI LANGSUNG ==========
+                const item = checkoutItem;
+                
+                // Hitung harga dengan varian
+                const tipeData = item.product.varian?.tipe?.find(t => t.kode === item.varian.tipe) || { nama: item.varian.tipe };
+                const hargaSatuan = (item.product.harga?.diskon || item.product.harga?.normal || 0) + (tipeData?.hargaTambahan || 0);
+                const total = hargaSatuan * item.quantity;
+                
+                // Buat array dengan format yang sama seperti cart.items
+                const directItems = [{
+                    id: item.product.id,
+                    nama: item.product.nama,
+                    gambar: item.product.gambar.utama,
+                    varian: {
+                        tipe: item.varian.tipe,
+                        tipeNama: tipeData?.nama || item.varian.tipe
+                    },
+                    harga: hargaSatuan,
+                    quantity: item.quantity
+                }];
+                
+                // Tampilkan dengan kontrol (sama seperti dari keranjang)
+				container.innerHTML = directItems.map((item, index) => {
+					return `
+						<div class="checkout-item" data-index="direct-${index}">
+							<img src="${item.gambar}" alt="${item.nama}" onerror="this.src='assets/images/default-product.jpg'">
+							<div class="item-details">
+								<div class="item-name">${item.nama}</div>
+								<div class="item-variant">
+									<i class="fas fa-tag"></i> ${item.varian.tipeNama}
+								</div>
+								<div class="item-controls">
+									<button class="qty-btn" onclick="updateQtyDirect(${index}, -1)" ${item.quantity <= 1 ? 'disabled' : ''}>
+										<i class="fas fa-minus"></i>
+									</button>
+									<input type="number" class="qty-input" value="${item.quantity}" 
+										   min="1" max="99" 
+										   onchange="updateQtyDirectInput(${index}, this.value)"
+										   onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+									<button class="qty-btn" onclick="updateQtyDirect(${index}, 1)">
+										<i class="fas fa-plus"></i>
+									</button>
+									<span class="item-price">Rp ${(item.harga * item.quantity).toLocaleString()}</span>
+									<button class="delete-btn" onclick="confirmDeleteDirect(${index})" title="Hapus">
+										<i class="fas fa-trash"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					`;
+				}).join('');
+                
+                totalEl.textContent = `Rp ${total.toLocaleString()}`;
+                
+            } else {
+                // ========== DARI KERANJANG ==========
+                const items = cart.items;
+                const total = cart.getSubtotal();
+                
+                if (items.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Keranjang Belanja Kosong</h3>
+                            <p>Belum ada produk yang ditambahkan ke keranjang</p>
+                            <a href="products.html" class="btn-shop">
+                                <i class="fas fa-arrow-left"></i> Belanja Sekarang
+                            </a>
+                        </div>
+                    `;
+                } else {
+					container.innerHTML = items.map((item, index) => {
+						const tipeNama = item.varian.tipeNama || 
+										(item.varian.tipe === 'PS' ? 'Punggung Standar' : 'Punggung Kecil');
+						
+						return `
+							<div class="checkout-item" data-index="${index}">
+								<img src="${item.gambar}" alt="${item.nama}" onerror="this.src='assets/images/default-product.jpg'">
+								<div class="item-details">
+									<div class="item-name">${item.nama}</div>
+									<div class="item-variant">
+										<i class="fas fa-tag"></i> ${tipeNama}
+									</div>
+									<div class="item-controls">
+										<button class="qty-btn" onclick="updateQty(${index}, -1)" ${item.quantity <= 1 ? 'disabled' : ''}>
+											<i class="fas fa-minus"></i>
+										</button>
+										<input type="number" class="qty-input" value="${item.quantity}" 
+											   min="1" max="99" 
+											   onchange="updateQtyInput(${index}, this.value)"
+											   onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+										<button class="qty-btn" onclick="updateQty(${index}, 1)">
+											<i class="fas fa-plus"></i>
+										</button>
+										<span class="item-price">Rp ${(item.harga * item.quantity).toLocaleString()}</span>
+										<button class="delete-btn" onclick="confirmDelete(${index})" title="Hapus">
+											<i class="fas fa-trash"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						`;
+					}).join('');
+                }
+                
+                totalEl.textContent = `Rp ${total.toLocaleString()}`;
+            }
+            
+            // Update cart icon count
+            updateCartIconCount();
+        }
+
+        // ========== FUNGSI UNTUK BELI LANGSUNG ==========
+        
+        // Update quantity untuk beli langsung
+        function updateQtyDirect(index, change) {
+            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
+            if (!checkoutItem) return;
+            
+            const newQty = checkoutItem.quantity + change;
+            if (newQty < 1) {
+                confirmDeleteDirect(index);
+            } else {
+                checkoutItem.quantity = newQty;
+                sessionStorage.setItem('checkoutItem', JSON.stringify(checkoutItem));
+                displayCart();
+            }
+        }
+
+        // Konfirmasi hapus untuk beli langsung
+        function confirmDeleteDirect(index) {
+            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
+            if (!checkoutItem) return;
+            
+            // Buat overlay modal
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.id = 'deleteModal';
+            
+            // Buat modal konfirmasi
+            const modal = document.createElement('div');
+            modal.className = 'modal-confirm';
+            modal.innerHTML = `
+                <div class="modal-icon">🗑️</div>
+                <h3>Hapus Item?</h3>
+                <p>Item <strong>"${checkoutItem.product.nama}"</strong> (${checkoutItem.varian.tipe}) akan dihapus dari pesanan Anda.</p>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeModal()">
+                        <i class="fas fa-times"></i> Batal
+                    </button>
+                    <button class="btn-danger" onclick="removeItemDirect()">
+                        <i class="fas fa-trash"></i> Ya, Hapus
+                    </button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            // Tutup modal jika klik di luar
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Hapus item untuk beli langsung
+        function removeItemDirect() {
+            sessionStorage.removeItem('checkoutItem');
+            closeModal();
+            displayCart();
+
+            setTimeout(() => {
+                window.location.href = 'products.html';
+            }, 1500);
+        }
+
+        // ========== FUNGSI UNTUK KERANJANG NORMAL ==========
+        
+        // Update quantity untuk keranjang normal
+        function updateQty(index, change) {
+            const item = cart.items[index];
+            if (!item) return;
+            
+            const newQty = item.quantity + change;
+            if (newQty < 1) {
+                confirmDelete(index);
+            } else {
+                cart.updateQuantity(index, newQty);
+                displayCart();
+            }
+        }
+
+        // Confirm delete modal untuk keranjang normal
+        function confirmDelete(index) {
+            const item = cart.items[index];
+            if (!item) return;
+            
+            // Buat overlay modal
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.id = 'deleteModal';
+            
+            // Buat modal konfirmasi
+            const modal = document.createElement('div');
+            modal.className = 'modal-confirm';
+            modal.innerHTML = `
+                <div class="modal-icon">🗑️</div>
+                <h3>Hapus Item?</h3>
+                <p>Item <strong>"${item.nama}"</strong> (${item.varian.tipeNama}) akan dihapus dari keranjang belanja Anda.</p>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeModal()">
+                        <i class="fas fa-times"></i> Batal
+                    </button>
+                    <button class="btn-danger" onclick="removeItem(${index})">
+                        <i class="fas fa-trash"></i> Ya, Hapus
+                    </button>
+                </div>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            // Tutup modal jika klik di luar
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Remove item untuk keranjang normal
+        function removeItem(index) {
+            cart.remove(index);
+            closeModal();
+            displayCart();
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('deleteModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // ========== FUNGSI VALIDASI DAN CHECKOUT ==========
+        
+        // Validasi form
+        function validateForm() {
+            const nama = document.getElementById('nama').value.trim();
+            const noWa = document.getElementById('noWa').value.trim();
+            const alamat = document.getElementById('alamat').value.trim();
+            
+            let isValid = true;
+            
+            // Reset error
+            document.getElementById('errorNama').textContent = '';
+            document.getElementById('errorWa').textContent = '';
+            document.getElementById('errorAlamat').textContent = '';
+            
+            document.getElementById('nama').classList.remove('error');
+            document.getElementById('noWa').classList.remove('error');
+            document.getElementById('alamat').classList.remove('error');
+            
+            // Validasi nama
+            if (!nama) {
+                document.getElementById('errorNama').textContent = 'Nama lengkap harus diisi';
+                document.getElementById('nama').classList.add('error');
+                isValid = false;
+            } else if (nama.length < 3) {
+                document.getElementById('errorNama').textContent = 'Nama terlalu pendek';
+                document.getElementById('nama').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validasi nomor WA
+            if (!noWa) {
+                document.getElementById('errorWa').textContent = 'Nomor WhatsApp harus diisi';
+                document.getElementById('noWa').classList.add('error');
+                isValid = false;
+            } else if (!/^[0-9]{10,13}$/.test(noWa.replace(/[^0-9]/g, ''))) {
+                document.getElementById('errorWa').textContent = 'Nomor WhatsApp tidak valid (10-13 digit)';
+                document.getElementById('noWa').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validasi alamat
+            if (!alamat) {
+                document.getElementById('errorAlamat').textContent = 'Alamat harus diisi';
+                document.getElementById('alamat').classList.add('error');
+                isValid = false;
+            } else if (alamat.length < 10) {
+                document.getElementById('errorAlamat').textContent = 'Alamat terlalu pendek, masukkan alamat lengkap';
+                document.getElementById('alamat').classList.add('error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Validate and checkout
+        function validateAndCheckout() {
+            if (!validateForm()) {
+                // Scroll ke error pertama
+                const firstError = document.querySelector('.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+            
+            checkoutWA();
+        }
+
+        // Checkout via WhatsApp
+        function checkoutWA() {
+            const nama = document.getElementById('nama').value.trim();
+            const noWa = document.getElementById('noWa').value.trim();
+            const alamat = document.getElementById('alamat').value.trim();
+            const catatan = document.getElementById('catatan').value.trim();
+            
+            // Format nomor WA (hapus karakter non-digit)
+            const formattedNoWa = noWa.replace(/[^0-9]/g, '');
+            
+            // Ambil data items
+            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
+            let items = [];
+            let total = 0;
+            
+            if (checkoutItem) {
+                items = [checkoutItem];
+                const tipeData = checkoutItem.product.varian?.tipe?.find(t => t.kode === checkoutItem.varian.tipe) || { nama: checkoutItem.varian.tipe };
+                const harga = (checkoutItem.product.harga?.diskon || checkoutItem.product.harga?.normal || 0) + (tipeData?.hargaTambahan || 0);
+                total = harga * checkoutItem.quantity;
+            } else {
+                items = cart.items;
+                total = cart.getSubtotal();
+                
+                if (items.length === 0) {
+                    alert('Keranjang belanja masih kosong!');
+                    return;
+                }
+            }
+            
+            // Format pesan WhatsApp
+            let message = `*┏━━━━━━━━━━━━━━━━━━━┓*\n`;
+            message += `*┃    PESANAN BARU    ┃*\n`;
+            message += `*┗━━━━━━━━━━━━━━━━━━━┛*\n\n`;
+            
+            message += `*📋 DATA PEMBELI*\n`;
+            message += `──────────────────\n`;
+            message += `*Nama:* ${nama}\n`;
+            message += `*No. WA:* ${formattedNoWa}\n`;
+            message += `*Alamat:* ${alamat}\n`;
+            if (catatan) message += `*Catatan:* ${catatan}\n`;
+            
+            message += `\n*🛒 DETAIL PESANAN*\n`;
+            message += `──────────────────\n`;
+            
+            items.forEach((item, index) => {
+                const tipeNama = item.varian?.tipeNama || 
+                                item.varian?.tipe || 
+                                (item.product?.varian?.tipe?.find(t => t.kode === item.varian?.tipe)?.nama || 'Standar');
+                
+                const namaProduk = item.nama || item.product?.nama || 'Produk';
+                const jumlah = item.quantity || 1;
+                const hargaSatuan = item.harga || (item.product?.harga?.diskon || item.product?.harga?.normal || 0);
+                const subtotal = hargaSatuan * jumlah;
+                
+                message += `\n*${index + 1}. ${namaProduk}*\n`;
+                message += `   Tipe: ${tipeNama}\n`;
+                message += `   Jumlah: ${jumlah} x Rp ${hargaSatuan.toLocaleString()}\n`;
+                message += `   Subtotal: Rp ${subtotal.toLocaleString()}\n`;
+            });
+            
+            message += `\n*💰 TOTAL PEMBAYARAN*\n`;
+            message += `──────────────────\n`;
+            message += `*Rp ${total.toLocaleString()}*\n\n`;
+            
+            message += `*📅 WAKTU PESAN*\n`;
+            message += `${new Date().toLocaleString('id-ID', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })}\n\n`;
+            
+            message += `*━━━━━━━━━━━━━━━━━━━*\n`;
+            message += `_Terima kasih telah berbelanja di Inti Media Printing_`;
+            
+            // Nomor toko
+            const noToko = "6282211306022";
+            
+            // Buka WhatsApp
+            window.open(`https://wa.me/${noToko}?text=${encodeURIComponent(message)}`, '_blank');
+            
+            // Tampilkan loading state
+            showNotification('Mengalihkan ke WhatsApp...', 'info');
+            
+            // Kosongkan keranjang dan session setelah delay
+            setTimeout(() => {
+                if (!checkoutItem) {
+                    cart.clear();
+                } else {
+                    sessionStorage.removeItem('checkoutItem');
+                }
+                
+                setTimeout(() => {
+                    if (confirm('Pesanan berhasil dikirim! Ingin kembali berbelanja?')) {
+                        window.location.href = 'products.html';
+                    }
+                }, 1000);
+            }, 2000);
+        }
+
+        // ========== FUNGSI NOTIFIKASI ==========
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // ========== FUNGSI SEARCH ==========
+        
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInputHome');
+            const query = searchInput ? searchInput.value.trim() : '';
+            
+            if (query) {
+                window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+            } else {
+                window.location.href = 'products.html';
+            }
+        }
+
+        // ========== INITIALIZE ==========
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCart();
+            
+            // Cart icon click
+            const cartIcon = document.getElementById('cartIcon');
+            if (cartIcon) {
+                cartIcon.addEventListener('click', function() {
+                    window.location.href = 'checkout.html';
+                });
+            }
+            
+            // Search enter key
+            const searchInput = document.getElementById('searchInputHome');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchProducts();
+                    }
+                });
+            }
+            
+            // Auto-format nomor WA
+            const waInput = document.getElementById('noWa');
+            if (waInput) {
+                waInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+            
+            // Listen untuk storage changes (dari tab lain)
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'cart') {
+                    if (typeof cart !== 'undefined') {
+                        cart.items = JSON.parse(e.newValue) || [];
+                        displayCart();
+                    }
+                }
+            });
+        });
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+	<script>
+		// Mobile Menu Toggle
+		document.addEventListener('DOMContentLoaded', function() {
+			const mobileToggle = document.getElementById('mobileMenuToggle');
+			const navMenu = document.getElementById('navMenu');
+			
+			if (mobileToggle && navMenu) {
+				mobileToggle.addEventListener('click', function() {
+					navMenu.classList.toggle('active');
+					
+					// Animate hamburger to X
+					const spans = this.children;
+					if (navMenu.classList.contains('active')) {
+						spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+						spans[1].style.opacity = '0';
+						spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
+					} else {
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					}
+				});
+				
+				// Close menu when clicking outside
+				document.addEventListener('click', function(event) {
+					if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+						navMenu.classList.remove('active');
+						const spans = mobileToggle.children;
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					}
+				});
+				
+				// Close menu when clicking a link
+				navMenu.querySelectorAll('a').forEach(link => {
+					link.addEventListener('click', function() {
+						navMenu.classList.remove('active');
+						const spans = mobileToggle.children;
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					});
+				});
+			}
+			
+			// Fix untuk input di mobile
+			const searchInput = document.getElementById('searchInputHome');
+			if (searchInput) {
+				searchInput.addEventListener('focus', function() {
+					// Scroll ke posisi yang tepat agar keyboard tidak menutupi input
+					setTimeout(() => {
+						this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					}, 300);
+				});
+			}
+			
+			// Fix untuk touch events
+			const buttons = document.querySelectorAll('button, .product-card, .feature-card');
+			buttons.forEach(button => {
+				button.addEventListener('touchstart', function(e) {
+					// Prevent double tap zoom on buttons
+					e.preventDefault();
+				}, { passive: false });
+			});
+			
+			// Fix untuk 100vh di mobile (mengatasi masalah address bar)
+			const setVh = () => {
+				const vh = window.innerHeight * 0.01;
+				document.documentElement.style.setProperty('--vh', `${vh}px`);
+			};
+			
+			setVh();
+			window.addEventListener('resize', setVh);
+		});
+	</script>
+</body>
+</html>

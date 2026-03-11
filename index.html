@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Inti Media Printing - Toko online hard cover berkualitas. Tersedia hard cover bludru, glossy, diamond, RCP dengan harga terjangkau.">
+    <meta name="keywords" content="hard cover, bludru, glossy, diamond, RCP, percetakan, jilid buku">
+    <meta name="author" content="Inti Media Printing">
+    
+    <!-- Open Graph untuk sosial media -->
+    <meta property="og:title" content="IMPrintingOnline - Hard Cover Berkualitas">
+    <meta property="og:description" content="Belanja hard cover mudah & aman">
+    <meta property="og:image" content="https://imediaprint.pages.dev/assets/images/gambarhome1.jpg">
+    <meta property="og:url" content="https://imediaprint.pages.dev">
+    <meta property="og:type" content="website">
+    
+    <title>Inti Media Printing | Hard Cover Bludru, Glossy, Diamond & RCP</title>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKC324B7FX"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-FKC324B7FX');
+	</script>
+
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<nav class="navbar">
+		<div class="container-header">
+			<div class="nav-brand">
+				<a href="index.html">
+					<img src="assets/images/logo.png" alt="IMPrintingOnline Logo" class="nav-logo">
+					<span>Inti Media Printing</span>
+				</a>
+			</div>
+			
+			<!-- Cart Icon - Pindahkan ke sebelum toggle -->
+			<div class="cart-icon" id="cartIcon" style="cursor: pointer;">
+				<i class="fas fa-shopping-cart"></i>
+				<span class="cart-count">0</span>
+			</div>
+			
+			<!-- Mobile Menu Toggle -->
+			<div id="mobileMenuToggle" class="mobile-menu-toggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			
+			<div class="search-section">
+				<div class="search-container">
+					<input type="text" class="search-input" id="searchInputHome" placeholder="Cari produk.....">
+					<button class="search-btn" onclick="searchProducts()">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</div>
+			
+			<ul class="nav-menu" id="navMenu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="products.html">Products</a></li>
+				<li><a href="about.html">About Us</a></li>
+			</ul>
+		</div>
+	</nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-image">
+                <a href="products.html">
+                    <img src="assets/images/gambarhome1.jpg" alt="Hard cover bludru berkualitas Inti Media Printing" onerror="this.src='assets/images/default-product.jpg'">
+                </a>
+            </div>
+
+            <div class="hero-features">
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Harga Terbaik</h3>
+                    <p class="feature-description">Harga distributor langsung dari pabrik, tanpa biaya tambahan</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3 class="feature-title">Pengiriman Cepat</h3>
+                    <p class="feature-description">Pengiriman ke seluruh Indonesia dengan jasa ekspedisi terpercaya</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Support Cepat</h3>
+                    <p class="feature-description">Respon cepat via WhatsApp untuk konsultasi dan order</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-item">
+            <h3>10.000+</h3>
+            <p>Units Delivered</p>
+        </div>
+        <div class="stat-item">
+            <h3>500+</h3>
+            <p>Trusted Partners</p>
+        </div>
+        <div class="stat-item">
+            <h3>10+</h3>
+            <p>Years of Craftsmanship</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-inner">
+            <h2>Elevate Your Collection</h2>
+            <p>Produk hardcover premium dengan standar kualitas terbaik untuk kebutuhan percetakan Anda.</p>
+            <a href="products.html" class="cta-btn">Lihat Semua Produk</a>
+        </div>
+    </section>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/6282211306022?text=Halo%20saya%20ingin%20bertanya%20tentang%20produk" class="wa-float" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <p>© 2026 Inti Media Printing - All Rights Reserved</p>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+
+         // Search function
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInputHome');
+            const query = searchInput ? searchInput.value.trim() : '';
+            
+            if (query) {
+                window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+            } else {
+                window.location.href = 'products.html';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart count
+            if (typeof cart !== 'undefined') {
+                cart.updateCount();
+            }
+            
+            // Cart icon click
+            const cartIcon = document.getElementById('cartIcon');
+            if (cartIcon) {
+                cartIcon.addEventListener('click', function() {
+                    window.location.href = 'checkout.html';
+                });
+            }
+            
+            // Search enter key
+            const searchInput = document.getElementById('searchInputHome');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchProducts();
+                    }
+                });
+            }
+            
+            // Animate stats on scroll (optional)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+			// Close mobile menu when window resized above mobile breakpoint
+			window.addEventListener('resize', function() {
+				if (window.innerWidth > 768) {
+					const navMenu = document.getElementById('navMenu');
+					const mobileToggle = document.getElementById('mobileMenuToggle');
+					
+					if (navMenu && navMenu.classList.contains('active')) {
+						navMenu.classList.remove('active');
+						
+						// Reset hamburger icon
+						const spans = mobileToggle.children;
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					}
+				}
+			});
+            
+            document.querySelectorAll('.feature-item, .team-member, .contact-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+		function resetFilters() {
+			// Reset form di index.html (hanya ada search input)
+			const searchInput = document.getElementById('searchInputHome');
+			if (searchInput) {
+				searchInput.value = '';
+			}
+			
+			// Redirect ke products.html tanpa parameter
+			window.location.href = 'products.html';
+		}
+
+    </script>
+
+	<script>
+		// Mobile Menu Toggle
+		document.addEventListener('DOMContentLoaded', function() {
+			const mobileToggle = document.getElementById('mobileMenuToggle');
+			const navMenu = document.getElementById('navMenu');
+			
+			if (mobileToggle && navMenu) {
+				mobileToggle.addEventListener('click', function() {
+					navMenu.classList.toggle('active');
+					
+					// Animate hamburger to X
+					const spans = this.children;
+					if (navMenu.classList.contains('active')) {
+						spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+						spans[1].style.opacity = '0';
+						spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
+					} else {
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					}
+				});
+				
+				// Close menu when clicking outside
+				document.addEventListener('click', function(event) {
+					if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+						navMenu.classList.remove('active');
+						const spans = mobileToggle.children;
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					}
+				});
+				
+				// Close menu when clicking a link
+				navMenu.querySelectorAll('a').forEach(link => {
+					link.addEventListener('click', function() {
+						navMenu.classList.remove('active');
+						const spans = mobileToggle.children;
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					});
+				});
+			}
+			
+			// Fix untuk input di mobile
+			const searchInput = document.getElementById('searchInputHome');
+			if (searchInput) {
+				searchInput.addEventListener('focus', function() {
+					// Scroll ke posisi yang tepat agar keyboard tidak menutupi input
+					setTimeout(() => {
+						this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					}, 300);
+				});
+			}
+			
+			// Fix untuk touch events
+			const buttons = document.querySelectorAll('button, .product-card, .feature-card');
+			buttons.forEach(button => {
+				button.addEventListener('touchstart', function(e) {
+					// Prevent double tap zoom on buttons
+					e.preventDefault();
+				}, { passive: false });
+			});
+			
+			// Fix untuk 100vh di mobile (mengatasi masalah address bar)
+			const setVh = () => {
+				const vh = window.innerHeight * 0.01;
+				document.documentElement.style.setProperty('--vh', `${vh}px`);
+			};
+			
+			setVh();
+			window.addEventListener('resize', setVh);
+		});
+	</script>
+
+</body>
+</html>

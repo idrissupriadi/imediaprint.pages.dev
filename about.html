@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Inti Media Printing - Toko online hard cover berkualitas. Tersedia hard cover bludru, glossy, diamond, RCP dengan harga terjangkau.">
+    <meta name="keywords" content="hard cover, bludru, glossy, diamond, RCP, percetakan, jilid buku">
+    <meta name="author" content="Inti Media Printing">
+    
+    <!-- Open Graph untuk sosial media -->
+    <meta property="og:title" content="IMPrintingOnline - Hard Cover Berkualitas">
+    <meta property="og:description" content="Belanja hard cover mudah & aman">
+    <meta property="og:image" content="https://imediaprint.pages.dev/assets/images/gambarhome1.jpg">
+    <meta property="og:url" content="https://imediaprint.pages.dev">
+    <meta property="og:type" content="website">
+    
+    <title>Tentang Kami - Inti Media Printing</title>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKC324B7FX"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-FKC324B7FX');
+	</script>
+
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<nav class="navbar">
+		<div class="container-header">
+			<div class="nav-brand">
+				<a href="index.html">
+					<img src="assets/images/logo.png" alt="IMPrintingOnline Logo" class="nav-logo">
+					<span>Inti Media Printing</span>
+				</a>
+			</div>
+			
+			<!-- Cart Icon - Pindahkan ke sebelum toggle -->
+			<div class="cart-icon" id="cartIcon" style="cursor: pointer;">
+				<i class="fas fa-shopping-cart"></i>
+				<span class="cart-count">0</span>
+			</div>
+			
+			<!-- Mobile Menu Toggle -->
+			<div class="mobile-menu-toggle" id="mobileMenuToggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			
+			<div class="search-section">
+				<div class="search-container">
+					<input type="text" class="search-input" id="searchInputHome" placeholder="Cari produk.....">
+					<button class="search-btn" onclick="searchProducts()">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</div>
+			
+			<ul class="nav-menu" id="navMenu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="products.html">Products</a></li>
+				<li><a href="about.html">About Us</a></li>
+			</ul>
+		</div>
+	</nav>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>Tentang Kami</h1>
+            <div class="title-underline"></div>
+        </div>
+        
+        <div class="about-content">
+            <!-- Company Header -->
+            <div class="company-header">
+                <div class="company-logo">
+                    <i class="fas fa-print"></i>
+                </div>
+                <h2 class="company-name">Inti Media Printing</h2>
+                <p class="company-tagline">Mitra Percetakan Terpercaya Anda</p>
+            </div>
+            
+            <!-- Company Description -->
+            <div class="company-description">
+                <p class="lead">
+                    <i class="fas fa-quote-left" style="color: var(--secondary); margin-right: 10px;"></i>
+                    Selamat datang di <strong>Inti Media Printing</strong> - mitra terpercaya Anda untuk 
+                    kebutuhan hard cover berkualitas.
+                </p>
+                
+                <p>
+                    Sejak tahun 2016, kami telah melayani ribuan pelanggan dari berbagai kalangan, 
+                    mulai dari mahasiswa, penerbit, perusahaan, hingga institusi pendidikan. 
+                    Kami menyediakan berbagai pilihan hard cover dengan bahan terbaik untuk buku tahunan, 
+                    skripsi, laporan, dokumen penting, dan berbagai kebutuhan percetakan lainnya.
+                </p>
+                
+                <p>
+                    Dengan pengalaman lebih dari 10 tahun di industri percetakan, kami memahami betul 
+                    bahwa kualitas adalah prioritas utama. Setiap produk yang kami hasilkan melalui 
+                    proses kontrol kualitas yang ketat untuk memastikan kepuasan pelanggan.
+                </p>
+            </div>
+            
+            <!-- Vision & Mission -->
+            <div class="vision-mission">
+                <div class="vm-card">
+                    <h3>
+                        <i class="fas fa-eye"></i>
+                        Visi Kami
+                    </h3>
+                    <p>
+                        Menjadi penyedia solusi percetakan terdepan yang mengutamakan kualitas, 
+                        kecepatan, dan kepuasan pelanggan di Indonesia.
+                    </p>
+                </div>
+            </div>
+			<div class="vision-mission">
+                <div class="vm-card">
+                    <h3>
+                        <i class="fas fa-bullseye"></i>
+                        Misi Kami
+                    </h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Menyediakan produk hard cover berkualitas tinggi dengan harga terjangkau
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Memberikan pelayanan cepat dan responsif melalui WhatsApp
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Terus berinovasi dalam varian produk dan layanan
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Membangun hubungan jangka panjang dengan pelanggan
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Why Choose Us -->
+            <div class="why-choose">
+                <h3>Mengapa Memilih Kami?</h3>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h4>Kualitas Terjamin</h4>
+                        <p>Bahan pilihan dengan hasil cetak terbaik dan proses kontrol kualitas ketat</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <h4>Harga Bersaing</h4>
+                        <p>Langsung dari distributor, tanpa perantara, harga lebih ekonomis</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h4>Pengiriman Cepat</h4>
+                        <p>Ke seluruh Indonesia dengan jasa ekspedisi terpercaya</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>Respon Cepat</h4>
+                        <p>Chat WhatsApp langsung dibalas oleh tim customer service kami</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h3>Hubungi Kami</h3>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h4>WhatsApp</h4>
+                        <a href="https://wa.me/6282211306022" target="_blank">
+                            +62 822-1130-6022
+                        </a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <h4>Email</h4>
+                        <a href="mailto:intimediaprinting@gmail.com">
+                            intimediaprinting@gmail.com
+                        </a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>Alamat</h4>
+                        <p>
+                            Perum Puri Lestari Blok F36 No.16 Sukajaya, Cibitung
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Business Hours -->
+                <div class="business-hours">
+                    <h4><i class="far fa-clock"></i> Jam Operasional</h4>
+                    <p>Senin - Jumat : 08.00 - 17.00 WIB</p>
+                    <p>Sabtu : 08.00 - 14.00 WIB</p>
+                    <p>Minggu & Hari Besar : Tutup</p>
+                    <span class="badge">
+                        <i class="fas fa-bolt"></i> Respon Cepat via WhatsApp
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Map -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126748.6091255435!2d106.71670295!3d-6.229386449999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d50fa255a5%3A0x9b9b41dbb9b866fa!2sInti%20Media%20Printing!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Inti Media Printing - All Rights Reserved</p>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    
+    <script>
+        // Search function
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInputHome');
+            const query = searchInput ? searchInput.value.trim() : '';
+            
+            if (query) {
+                window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+            } else {
+                window.location.href = 'products.html';
+            }
+        }
+
+        function resetFilters() {
+            const searchInput = document.getElementById('searchInputHome');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            window.location.href = 'products.html';
+        }
+
+        // Initialize all functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update cart count
+            if (typeof cart !== 'undefined' && cart.updateCount) {
+                cart.updateCount();
+            }
+            
+            // Cart icon click
+            const cartIcon = document.getElementById('cartIcon');
+            if (cartIcon) {
+                cartIcon.addEventListener('click', function() {
+                    window.location.href = 'checkout.html';
+                });
+            }
+            
+            // Search enter key
+            const searchInput = document.getElementById('searchInputHome');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchProducts();
+                    }
+                });
+                
+                // Scroll into view when focused (for mobile)
+                searchInput.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            }
+            
+            // Mobile Menu Toggle
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                    
+                    const spans = this.children;
+                    if (navMenu.classList.contains('active')) {
+                        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                        spans[1].style.opacity = '0';
+                        spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
+                    } else {
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        const spans = mobileToggle.children;
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
+                });
+                
+                // Close menu when clicking a link
+                navMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('active');
+                        const spans = mobileToggle.children;
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    });
+                });
+            }
+            
+            // Close mobile menu on resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    const navMenu = document.getElementById('navMenu');
+                    const mobileToggle = document.getElementById('mobileMenuToggle');
+                    
+                    if (navMenu && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        
+                        const spans = mobileToggle.children;
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
+                }
+            });
+            
+            // Fix untuk touch events
+            const buttons = document.querySelectorAll('button, .product-card, .feature-card, .feature-item, .contact-item a');
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function(e) {
+                    // Prevent double tap zoom on buttons (optional)
+                }, { passive: true });
+            });
+            
+            // Fix untuk 100vh di mobile
+            const setVh = () => {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            };
+            
+            setVh();
+            window.addEventListener('resize', setVh);
+            window.addEventListener('orientationchange', setVh);
+            
+            // Animate elements on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.feature-item, .vm-card, .contact-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inti Media Printing - Toko online hard cover berkualitas. Tersedia hard cover bludru, glossy, diamond, RCP dengan harga terjangkau.">
+    <meta name="keywords" content="hard cover, bludru, glossy, diamond, RCP, percetakan, jilid buku">
+    <meta name="author" content="Inti Media Printing">
+    
+    <!-- Open Graph untuk sosial media -->
+    <meta property="og:title" content="IMPrintingOnline - Hard Cover Berkualitas">
+    <meta property="og:description" content="Belanja hard cover mudah & aman">
+    <meta property="og:image" content="URL_GAMBAR_UTAMA">
+    <title>Detail Produk - IMPrintingOnline</title>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKC324B7FX"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-FKC324B7FX');
+	</script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+	<nav class="navbar">
+		<div class="container-header">
+			<div class="nav-brand">
+				<a href="index.html">
+					<img src="assets/images/logo.png" alt="IMPrintingOnline Logo" class="nav-logo">
+					<span>Inti Media Printing</span>
+				</a>
+			</div>
+			
+			<!-- Cart Icon - Pindahkan ke sebelum toggle -->
+			<div class="cart-icon" id="cartIcon" style="cursor: pointer;">
+				<i class="fas fa-shopping-cart"></i>
+				<span class="cart-count">0</span>
+			</div>
+			
+			<!-- Mobile Menu Toggle -->
+			<div id="mobileMenuToggle" class="mobile-menu-toggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			
+			<div class="search-section">
+				<div class="search-container">
+					<input type="text" class="search-input" id="searchInputHome" placeholder="Cari produk.....">
+					<button class="search-btn" onclick="searchProducts()">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+			</div>
+			
+			<ul class="nav-menu" id="navMenu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="products.html">Products</a></li>
+				<li><a href="about.html">About Us</a></li>
+			</ul>
+		</div>
+	</nav>
+    
+    <div class="container">
+        <div id="productDetail" class="product-detail"></div>
+    </div>
+    
+    <footer>
+        <p>© 2026 Inti Media Printing - All Rights Reserved</p>
+    </footer>
+
+	<script src="js/products.js"></script>
+	<script src="js/cart.js"></script>
+
+	<script>
+
+	let currentProduct = null;
+	let selectedVarian = { tipe:null };
+	let quantity = 1;
+
+
+	/* ================= LOAD PRODUCT ================= */
+
+	function loadProduct(){
+
+		const urlParams = new URLSearchParams(window.location.search);
+		const productId = urlParams.get('id');
+
+		if(!productId){
+			window.location.href = "products.html";
+			return;
+		}
+
+		if(typeof Products === "undefined"){
+			console.error("Products object tidak ditemukan");
+			return;
+		}
+
+		currentProduct = Products.getById(productId);
+
+		if(!currentProduct){
+			window.location.href = "products.html";
+			return;
+		}
+
+		displayProduct();
+
+	}
+
+
+	/* ================= DISPLAY PRODUCT ================= */
+
+	function displayProduct(){
+
+		const p = currentProduct;
+		const container = document.getElementById("productDetail");
+
+		if(!container) return;
+
+		const hargaNormal = Number(p.harga?.normal || 0);
+		const hargaDiskon = p.harga?.diskon ? Number(p.harga.diskon) : null;
+		const hargaAwal = hargaDiskon || hargaNormal;
+
+		container.innerHTML = `
+
+		<div class="detail-image-container">
+			<img src="${p.gambar?.utama || 'assets/images/default-product.jpg'}"
+			alt="${p.nama || 'Produk'}"
+			class="detail-image">
+		</div>
+
+		<div class="detail-info">
+
+			<h1>${p.nama || "Produk"}</h1>
+
+			<div class="detail-price">
+				<span class="current-price" id="hargaDisplay">
+				Rp ${hargaAwal.toLocaleString("id-ID")}
+				</span>
+
+				${hargaDiskon ? `
+				<span class="old-price">
+				Rp ${hargaNormal.toLocaleString("id-ID")}
+				</span>` : ""}
+			</div>
+
+			<div class="varian-section">
+
+				<div class="varian-title">Pilih Tipe:</div>
+				<div class="varian-options" id="tipeOptions"></div>
+
+				<div class="varian-title">Jumlah:</div>
+
+				<div class="quantity-selector">
+
+					<button class="quantity-btn"
+					onclick="updateQuantity(-1)">-</button>
+
+					<input type="text"
+					id="quantity"
+					class="quantity-input"
+					value="1"
+					inputmode="numeric">
+
+					<button class="quantity-btn"
+					onclick="updateQuantity(1)">+</button>
+
+				</div>
+
+			</div>
+
+			<div style="margin-top:20px">
+
+				<button class="btn-add-cart" onclick="addToCart()">
+				<i class="fas fa-cart-plus"></i> Tambah ke Keranjang
+				</button>
+
+				<button class="btn-buy-now" onclick="buyNow()">
+				<i class="fas fa-bolt"></i> Beli Sekarang
+				</button>
+
+			</div>
+
+			<div class="product-description">
+				<h3><i class="fas fa-info-circle"></i> Deskripsi Produk</h3>
+				<p>${p.deskripsi?.panjang || p.deskripsi?.pendek || "Deskripsi produk tidak tersedia"}</p>
+			</div>
+
+		</div>
+		`;
+
+
+		/* ====== LOAD VARIAN ====== */
+
+		const tipeOptions = document.getElementById("tipeOptions");
+
+		if(p.varian?.tipe){
+
+			tipeOptions.innerHTML = p.varian.tipe.map(t=>{
+
+				const nama = t.nama || t.kode;
+
+				return `
+				<button class="varian-option"
+				onclick="selectTipe('${t.kode}',this)">
+				${nama}
+				</button>
+				`;
+
+			}).join("");
+
+		}
+
+
+		setupQuantityInput();
+		updateCartCount();
+
+	}
+
+
+	/* ================= QUANTITY ================= */
+
+	function setupQuantityInput(){
+
+		const input = document.getElementById("quantity");
+		if(!input) return;
+
+		input.addEventListener("input",function(){
+
+			this.value = this.value.replace(/[^0-9]/g,'');
+
+			if(this.value === "") this.value = 1;
+
+			quantity = parseInt(this.value);
+
+		});
+
+	}
+
+
+	/* ================= SELECT VARIAN ================= */
+
+	function selectTipe(tipe,element){
+
+		selectedVarian.tipe = tipe;
+
+		document
+		.querySelectorAll("#tipeOptions .varian-option")
+		.forEach(btn=>btn.classList.remove("selected"));
+
+		element.classList.add("selected");
+
+		updateHarga();
+
+	}
+
+
+	/* ================= UPDATE HARGA ================= */
+
+	function updateHarga(){
+
+		if(!currentProduct) return;
+
+		let harga =
+		currentProduct.harga?.diskon ||
+		currentProduct.harga?.normal ||
+		0;
+
+		const tipeData =
+		currentProduct.varian?.tipe
+		?.find(t=>t.kode === selectedVarian.tipe);
+
+		if(tipeData?.hargaTambahan){
+			harga += tipeData.hargaTambahan;
+		}
+
+		const display =
+		document.getElementById("hargaDisplay");
+
+		if(display){
+			display.textContent =
+			"Rp " + harga.toLocaleString("id-ID");
+		}
+
+	}
+
+
+	/* ================= UPDATE QTY BUTTON ================= */
+
+	function updateQuantity(change){
+
+		const input = document.getElementById("quantity");
+
+		let val = parseInt(input.value) || 1;
+
+		val += change;
+
+		if(val < 1) val = 1;
+
+		input.value = val;
+
+		quantity = val;
+
+	}
+
+
+	/* ================= ADD CART ================= */
+
+	function addToCart(){
+
+		if(!selectedVarian.tipe){
+			alert("Silakan pilih tipe produk!");
+			return;
+		}
+
+		if(typeof cart === "undefined"){
+			alert("Keranjang belum tersedia");
+			return;
+		}
+
+		cart.add(currentProduct,selectedVarian,quantity);
+
+		updateCartCount();
+
+	}
+
+
+	/* ================= BUY NOW ================= */
+
+	function buyNow(){
+
+		if(!selectedVarian.tipe){
+			alert("Silakan pilih tipe produk!");
+			return;
+		}
+
+		sessionStorage.setItem("checkoutItem",
+		JSON.stringify({
+			product:currentProduct,
+			varian:selectedVarian,
+			quantity:quantity
+		}));
+
+		window.location.href = "checkout.html";
+
+	}
+
+
+	/* ================= CART COUNT ================= */
+
+	function updateCartCount(){
+
+		const el = document.querySelector(".cart-count");
+
+		if(el && typeof cart !== "undefined"){
+			el.textContent = cart.getTotalItems();
+		}
+
+	}
+
+
+	/* ================= SEARCH ================= */
+
+	function searchProducts(){
+
+		const query =
+		document.getElementById("searchInputHome").value;
+
+		if(query.trim()){
+			window.location.href =
+			"products.html?search=" +
+			encodeURIComponent(query);
+		}
+
+	}
+
+
+	/* ================= INIT ================= */
+
+	document.addEventListener("DOMContentLoaded",function(){
+
+		loadProduct();
+
+		const cartIcon =
+		document.getElementById("cartIcon");
+
+		if(cartIcon){
+			cartIcon.onclick = ()=>{
+				window.location.href="checkout.html";
+			};
+		}
+
+	});
+
+	</script>
+
+	<script>
+
+	document.addEventListener("DOMContentLoaded", function(){
+
+		const mobileToggle = document.getElementById("mobileMenuToggle");
+		const navMenu = document.getElementById("navMenu");
+
+		/* ================= MOBILE MENU ================= */
+
+		if(mobileToggle && navMenu){
+
+			mobileToggle.addEventListener("click", function(e){
+
+				e.stopPropagation();
+
+				navMenu.classList.toggle("active");
+				this.classList.toggle("open");
+
+			});
+
+
+			/* CLOSE MENU WHEN CLICK OUTSIDE */
+
+			document.addEventListener("click", function(e){
+
+				if(!navMenu.contains(e.target) && !mobileToggle.contains(e.target)){
+
+					navMenu.classList.remove("active");
+					mobileToggle.classList.remove("open");
+
+				}
+
+			});
+
+
+			/* CLOSE MENU WHEN CLICK LINK */
+
+			navMenu.querySelectorAll("a").forEach(link=>{
+
+				link.addEventListener("click", ()=>{
+
+					navMenu.classList.remove("active");
+					mobileToggle.classList.remove("open");
+
+				});
+
+			});
+
+		}
+
+
+		/* ================= MOBILE INPUT FIX ================= */
+
+		const searchInput = document.getElementById("searchInputHome");
+
+		if(searchInput){
+
+			searchInput.addEventListener("focus", function(){
+
+				setTimeout(()=>{
+
+					this.scrollIntoView({
+						behavior:"smooth",
+						block:"center"
+					});
+
+				},300);
+
+			});
+
+		}
+
+
+		/* ================= FIX 100vh MOBILE ================= */
+
+		function setVh(){
+
+			const vh = window.innerHeight * 0.01;
+			document.documentElement.style.setProperty("--vh", vh + "px");
+
+		}
+
+		setVh();
+		window.addEventListener("resize", setVh);
+
+
+	});
+
+	</script>
+</body>
+</html>
