@@ -9,7 +9,37 @@ const DEFAULT_PRODUCT_IMAGE = 'assets/images/default-product.jpg';
 class Cart {
     constructor() {
         this.items = JSON.parse(localStorage.getItem('cart')) || [];
+        this.fixOldData(); // Perbaiki data lama
         this.init();
+    }
+
+    // Tambahkan fungsi untuk memperbaiki data lama
+    fixOldData() {
+        // Perbaiki data lama yang mungkin menyimpan gambar sebagai object
+        let needSave = false;
+        
+        this.items = this.items.map(item => {
+            // Perbaiki gambar jika masih object
+            if (item.gambar && typeof item.gambar === 'object') {
+                console.log('Memperbaiki item lama:', item);
+                needSave = true;
+                
+                // Ambil gambar dari object
+                if (item.gambar.utama && typeof item.gambar.utama === 'string') {
+                    item.gambar = item.gambar.utama;
+                } else if (item.gambar.length && typeof item.gambar[0] === 'string') {
+                    item.gambar = item.gambar[0];
+                } else {
+                    item.gambar = DEFAULT_PRODUCT_IMAGE;
+                }
+            }
+            return item;
+        });
+        
+        if (needSave) {
+            console.log('Data lama diperbaiki');
+            this.save();
+        }
     }
 
     init() {
@@ -45,9 +75,12 @@ class Cart {
             this.showNotification({ nama: 'Produk tidak dikenal' }, 'error');
             return false;
         }
-		console.log('PRODUCT DI ADD:', product);
-		console.log('PRODUCT GAMBAR:', product.gambar);
-		console.log('PRODUCT GAMBAR.UTAMA:', product.gambar?.utama);
+
+        // Debug product
+        console.log('PRODUCT DI ADD:', product);
+        console.log('PRODUCT GAMBAR:', product.gambar);
+        console.log('PRODUCT GAMBAR.UTAMA:', product.gambar?.utama);
+
         if (!varian || !varian.tipe) {
             console.error('Varian tidak valid');
             this.showNotification({ nama: 'Pilih varian terlebih dahulu' }, 'error');
@@ -73,16 +106,31 @@ class Cart {
             harga += tipeVarian.hargaTambahan;
         }
 
+        // PASTIKAN GAMBAR ADALAH STRING
+        let gambarItem = DEFAULT_PRODUCT_IMAGE;
+        
+        if (product.gambar) {
+            if (typeof product.gambar === 'string') {
+                gambarItem = product.gambar;
+            } else if (product.gambar.utama && typeof product.gambar.utama === 'string') {
+                gambarItem = product.gambar.utama;
+            } else if (product.gambar.length && typeof product.gambar[0] === 'string') {
+                gambarItem = product.gambar[0];
+            }
+        }
+        
+        console.log('Gambar yang disimpan:', gambarItem); // Untuk debug
+
         if (existingItemIndex >= 0) {
             // Update quantity item yang sudah ada
             this.items[existingItemIndex].quantity += quantity;
             this.showNotification(product, 'update');
         } else {
-            // Tambah item baru
+            // Tambah item baru dengan gambar yang sudah dipastikan string
             const newItem = {
                 id: product.id,
                 nama: product.nama || 'Produk',
-                gambar: product.gambar?.utama || DEFAULT_PRODUCT_IMAGE,
+                gambar: gambarItem, // PASTIKAN STRING
                 varian: {
                     tipe: varian.tipe,
                     tipeNama: tipeVarian ? tipeVarian.nama : varian.tipe
@@ -242,102 +290,129 @@ class Cart {
      * @param {Object} item - Item yang ditambahkan/dihapus
      * @param {string} action - Aksi (add/update/remove/error)
      */
-	showNotification(item, action = 'add') {
-		// Validasi item
-		if (!item || typeof item !== 'object') {
-			console.error('Item tidak valid', item);
-			return;
-		}
+    showNotification(item, action = 'add') {
+        try {
+            // Validasi item
+            if (!item) {
+                console.error('Item tidak ada');
+                return;
+            }
 
-		// TAMBAHKAN INI - DEBUG ITEM
-		console.log('ITEM DI NOTIFICATION:', item);
-		console.log('ITEM TYPE:', typeof item);
-		console.log('ITEM GAMBAR:', item.gambar);
-		console.log('ITEM.GAMBAR TYPE:', typeof item.gambar);
+            // Debug item
+            console.log('ITEM DI NOTIFICATION:', item);
+            console.log('ITEM TYPE:', typeof item);
+            console.log('ITEM GAMBAR:', item.gambar);
+            console.log('ITEM.GAMBAR TYPE:', typeof item.gambar);
 
-		// Hapus notifikasi sebelumnya jika ada
-		const existingToast = document.querySelector('.toast-notification');
-		if (existingToast) {
-			existingToast.remove();
-		}
+            // Hapus notifikasi sebelumnya
+            const existingToast = document.querySelector('.toast-notification');
+            if (existingToast) existingToast.remove();
 
-		// PASTIKAN GAMBAR ADALAH STRING
-		let gambar = DEFAULT_PRODUCT_IMAGE;
-		
-		if (item.gambar) {
-			if (typeof item.gambar === 'string') {
-				gambar = item.gambar;
-				console.log('Gambar dari item.gambar (string):', gambar);
-			} else {
-				console.error('item.gambar BUKAN string:', item.gambar);
-			}
-		} else if (item.product?.gambar?.utama) {
-			if (typeof item.product.gambar.utama === 'string') {
-				gambar = item.product.gambar.utama;
-				console.log('Gambar dari product.gambar.utama:', gambar);
-			}
-		}
-		
-		const nama = item.nama || item.product?.nama || 'Produk';
+            // CARI GAMBAR DENGAN AMAN - PASTIKAN STRING
+            let gambar = DEFAULT_PRODUCT_IMAGE;
+            let nama = 'Produk';
+            
+            // Dapatkan nama
+            if (item.nama && typeof item.nama === 'string') {
+                nama = item.nama;
+            } else if (item.product?.nama && typeof item.product.nama === 'string') {
+                nama = item.product.nama;
+            }
+            
+            // Dapatkan gambar - PERIKSA APAKAH STRING ATAU OBJECT
+            if (item.gambar) {
+                if (typeof item.gambar === 'string') {
+                    gambar = item.gambar;
+                    console.log('Gambar string:', gambar);
+                } else if (typeof item.gambar === 'object') {
+                    console.log('Gambar object, mencoba ambil properti:', item.gambar);
+                    // Jika object, ambil properti utama
+                    if (item.gambar.utama && typeof item.gambar.utama === 'string') {
+                        gambar = item.gambar.utama;
+                        console.log('Gambar dari object.utama:', gambar);
+                    } else if (item.gambar.length && typeof item.gambar[0] === 'string') {
+                        gambar = item.gambar[0];
+                        console.log('Gambar dari array[0]:', gambar);
+                    }
+                }
+            } else if (item.product?.gambar) {
+                // Jika item punya product.gambar
+                console.log('Mencoba dari product.gambar:', item.product.gambar);
+                if (typeof item.product.gambar === 'string') {
+                    gambar = item.product.gambar;
+                } else if (item.product.gambar.utama && typeof item.product.gambar.utama === 'string') {
+                    gambar = item.product.gambar.utama;
+                }
+            }
+            
+            // PASTIKAN GAMBAR STRING, JIKA BUKAN STRING PAKAI DEFAULT
+            if (typeof gambar !== 'string') {
+                console.error('Gambar masih bukan string:', gambar);
+                gambar = DEFAULT_PRODUCT_IMAGE;
+            }
+            
+            console.log('Final gambar:', gambar);
 
-		// Buat element toast
-		const toast = document.createElement('div');
-		toast.className = 'toast-notification';
-		
-		// Konfigurasi berdasarkan action
-		let icon = '✓';
-		let message = 'Ditambahkan ke keranjang';
-		let bgColor = 'linear-gradient(135deg, #a51533 0%, #cf1d3f 100%)';
-		
-		if (action === 'update') {
-			icon = '↻';
-			message = 'Jumlah diperbarui';
-			bgColor = 'linear-gradient(135deg, #fcaf17 0%, #cf1d3f 100%)';
-		} else if (action === 'remove') {
-			icon = '✕';
-			message = 'Dihapus dari keranjang';
-			bgColor = 'linear-gradient(135deg, #f5515f 0%, #9f041b 100%)';
-		} else if (action === 'error') {
-			icon = '⚠';
-			message = item.nama || 'Terjadi kesalahan';
-			bgColor = 'linear-gradient(135deg, #f5515f 0%, #9f041b 100%)';
-		}
-		
-		// Isi toast
-		const gambarAman = (gambar && typeof gambar === 'string') ? gambar : DEFAULT_PRODUCT_IMAGE;
-
-		toast.innerHTML = `
-			<div class="toast-content" style="background: ${bgColor}">
-				<img src="${gambarAman}" alt="${nama}" class="toast-image" 
-					 onerror="this.onerror=null; this.src='${DEFAULT_PRODUCT_IMAGE}'; console.log('Gambar error, pakai default');">
-				<div class="toast-text">
-					<div class="toast-title">${nama}</div>
-					<div class="toast-message">
-						<span class="toast-icon">${icon}</span> ${message}
-					</div>
-				</div>
-				${action !== 'remove' && action !== 'error' ? '<a href="checkout.html" class="toast-action">Lihat</a>' : ''}
-			</div>
-			<div class="toast-progress"></div>
-		`;
-		
-		document.body.appendChild(toast);
-		
-		// Trigger reflow untuk animasi
-		toast.offsetHeight;
-		
-		// Tampilkan toast
-		setTimeout(() => {
-			toast.classList.add('toast-show');
-		}, 10);
-		
-		// Auto hilang setelah 3 detik
-		setTimeout(() => {
-			toast.classList.remove('toast-show');
-			toast.classList.add('toast-hide');
-			setTimeout(() => toast.remove(), 300);
-		}, 3000);
-	}
+            // Buat element toast
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            
+            // Konfigurasi berdasarkan action
+            let icon = '✓';
+            let message = 'Ditambahkan ke keranjang';
+            let bgColor = 'linear-gradient(135deg, #a51533 0%, #cf1d3f 100%)';
+            
+            if (action === 'update') {
+                icon = '↻';
+                message = 'Jumlah diperbarui';
+                bgColor = 'linear-gradient(135deg, #fcaf17 0%, #cf1d3f 100%)';
+            } else if (action === 'remove') {
+                icon = '✕';
+                message = 'Dihapus dari keranjang';
+                bgColor = 'linear-gradient(135deg, #f5515f 0%, #9f041b 100%)';
+            } else if (action === 'error') {
+                icon = '⚠';
+                message = item.nama || 'Terjadi kesalahan';
+                bgColor = 'linear-gradient(135deg, #f5515f 0%, #9f041b 100%)';
+            }
+            
+            // Isi toast dengan gambar yang sudah dipastikan aman
+            toast.innerHTML = `
+                <div class="toast-content" style="background: ${bgColor}">
+                    <img src="${gambar}" alt="${nama}" class="toast-image" 
+                         onerror="this.onerror=null; this.src='${DEFAULT_PRODUCT_IMAGE}'; console.log('Gambar error, pakai default');">
+                    <div class="toast-text">
+                        <div class="toast-title">${nama}</div>
+                        <div class="toast-message">
+                            <span class="toast-icon">${icon}</span> ${message}
+                        </div>
+                    </div>
+                    ${action !== 'remove' && action !== 'error' ? '<a href="checkout.html" class="toast-action">Lihat</a>' : ''}
+                </div>
+                <div class="toast-progress"></div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Trigger reflow untuk animasi
+            toast.offsetHeight;
+            
+            // Tampilkan toast
+            setTimeout(() => {
+                toast.classList.add('toast-show');
+            }, 10);
+            
+            // Auto hilang setelah 3 detik
+            setTimeout(() => {
+                toast.classList.remove('toast-show');
+                toast.classList.add('toast-hide');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+            
+        } catch (error) {
+            console.error('Error di showNotification:', error);
+        }
+    }
 
     /**
      * Mengosongkan keranjang
