@@ -21,7 +21,6 @@ class Cart {
         this.items = this.items.map(item => {
             // Perbaiki gambar jika masih object
             if (item.gambar && typeof item.gambar === 'object') {
-                console.log('Memperbaiki item lama:', item);
                 needSave = true;
                 
                 // Ambil gambar dari object
@@ -37,7 +36,6 @@ class Cart {
         });
         
         if (needSave) {
-            console.log('Data lama diperbaiki');
             this.save();
         }
     }
@@ -76,11 +74,6 @@ class Cart {
             return false;
         }
 
-        // Debug product
-        console.log('PRODUCT DI ADD:', product);
-        console.log('PRODUCT GAMBAR:', product.gambar);
-        console.log('PRODUCT GAMBAR.UTAMA:', product.gambar?.utama);
-
         if (!varian || !varian.tipe) {
             console.error('Varian tidak valid');
             this.showNotification({ nama: 'Pilih varian terlebih dahulu' }, 'error');
@@ -118,8 +111,6 @@ class Cart {
                 gambarItem = product.gambar[0];
             }
         }
-        
-        console.log('Gambar yang disimpan:', gambarItem); // Untuk debug
 
         if (existingItemIndex >= 0) {
             // Update quantity item yang sudah ada
@@ -298,12 +289,6 @@ class Cart {
                 return;
             }
 
-            // Debug item
-            console.log('ITEM DI NOTIFICATION:', item);
-            console.log('ITEM TYPE:', typeof item);
-            console.log('ITEM GAMBAR:', item.gambar);
-            console.log('ITEM.GAMBAR TYPE:', typeof item.gambar);
-
             // Hapus notifikasi sebelumnya
             const existingToast = document.querySelector('.toast-notification');
             if (existingToast) existingToast.remove();
@@ -323,21 +308,16 @@ class Cart {
             if (item.gambar) {
                 if (typeof item.gambar === 'string') {
                     gambar = item.gambar;
-                    console.log('Gambar string:', gambar);
                 } else if (typeof item.gambar === 'object') {
-                    console.log('Gambar object, mencoba ambil properti:', item.gambar);
                     // Jika object, ambil properti utama
                     if (item.gambar.utama && typeof item.gambar.utama === 'string') {
                         gambar = item.gambar.utama;
-                        console.log('Gambar dari object.utama:', gambar);
                     } else if (item.gambar.length && typeof item.gambar[0] === 'string') {
                         gambar = item.gambar[0];
-                        console.log('Gambar dari array[0]:', gambar);
                     }
                 }
             } else if (item.product?.gambar) {
                 // Jika item punya product.gambar
-                console.log('Mencoba dari product.gambar:', item.product.gambar);
                 if (typeof item.product.gambar === 'string') {
                     gambar = item.product.gambar;
                 } else if (item.product.gambar.utama && typeof item.product.gambar.utama === 'string') {
@@ -350,8 +330,6 @@ class Cart {
                 console.error('Gambar masih bukan string:', gambar);
                 gambar = DEFAULT_PRODUCT_IMAGE;
             }
-            
-            console.log('Final gambar:', gambar);
 
             // Buat element toast
             const toast = document.createElement('div');
@@ -380,7 +358,7 @@ class Cart {
             toast.innerHTML = `
                 <div class="toast-content" style="background: ${bgColor}">
                     <img src="${gambar}" alt="${nama}" class="toast-image" 
-                         onerror="this.onerror=null; this.src='${DEFAULT_PRODUCT_IMAGE}'; console.log('Gambar error, pakai default');">
+                         onerror="this.onerror=null; this.src='${DEFAULT_PRODUCT_IMAGE}';
                     <div class="toast-text">
                         <div class="toast-title">${nama}</div>
                         <div class="toast-message">
@@ -451,18 +429,6 @@ class Cart {
             harga: item.harga,
             subtotal: item.harga * item.quantity
         }));
-    }
-
-    /**
-     * Debug cart - untuk development
-     */
-    debug() {
-        console.log('=== CART DEBUG ===');
-        console.log('Items:', this.items);
-        console.log('Total Items:', this.getTotalItems());
-        console.log('Subtotal:', this.getSubtotal());
-        console.log('Unique Items:', this.getUniqueItemCount());
-        console.log('=================');
     }
 
     /**
