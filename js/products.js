@@ -1205,18 +1205,6 @@ const Products = {
             minimumFractionDigits: 0
         }).format(harga);
     },
-
-    /**
-     * Debug produk
-     */
-    debug() {
-        console.log('=== PRODUCTS DEBUG ===');
-        console.log('Total Produk:', this.data.length);
-        console.log('Kategori:', this.getKategori());
-        console.log('Range Harga:', this.getHargaRange());
-        console.log('Produk Unggulan:', this.getUnggulan().length);
-        console.log('=====================');
-    }
 };
 
 // Export ke window
@@ -1224,6 +1212,5 @@ window.Products = Products;
 
 // Inisialisasi debug di development (opsional)
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    console.log('Products.js loaded');
     Products.debug();
 }
