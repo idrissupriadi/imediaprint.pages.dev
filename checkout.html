@@ -74,58 +74,40 @@
         </h1>
         
         <div class="checkout-container">
-            <!-- Form Pembeli -->
-            <div class="checkout-card">
-                <h3 style="margin-bottom: 20px; color: var(--primary);">
-                    <i class="fas fa-truck"></i> Informasi Pengiriman
-                </h3>
-                
-                <div class="form-group">
-                    <label>Nama Lengkap <span style="color: var(--danger);">*</span></label>
-                    <input type="text" id="nama" placeholder="Masukkan nama lengkap" value="">
-                    <div class="error-message" id="errorNama"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Nomor WhatsApp <span style="color: var(--danger);">*</span></label>
-                    <input type="tel" id="noWa" placeholder="Contoh: 08123456789" value="">
-                    <div class="error-message" id="errorWa"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Alamat Lengkap <span style="color: var(--danger);">*</span></label>
-                    <textarea id="alamat" rows="3" placeholder="Jalan, RT/RW, Kelurahan, Kecamatan, Kota, Kode Pos"></textarea>
-                    <div class="error-message" id="errorAlamat"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Catatan (opsional)</label>
-                    <textarea id="catatan" rows="2" placeholder="Ukuran, warna, request khusus, atau catatan lainnya"></textarea>
-                </div>
-            </div>
+			<div class="checkout-card" style="text-align: center;">
+				<h3 style="margin-bottom: 15px; color: var(--primary);">
+					<i class="fas fa-info-circle"></i> Cara Order
+				</h3>
+				<p style="color: #666; margin-bottom: 10px;">
+					Klik tombol di bawah untuk langsung chat WhatsApp.
+				</p>
+				<p style="color: #666; font-size: 0.9rem;">
+					⏱️ Proses cepat • Respon 5 menit
+				</p>
+			</div>
             
-            <!-- Ringkasan Order -->
-            <div class="checkout-card">
-                <h3 style="margin-bottom: 20px; color: var(--primary);">
-                    <i class="fas fa-shopping-cart"></i> Ringkasan Belanja
-                </h3>
-                
-                <div id="cartItems" class="cart-items"></div>
-                
-                <div class="total-row">
-                    <span>Total</span>
-                    <span id="totalHarga">Rp 0</span>
-                </div>
-                
+			<!-- Ringkasan Order -->
+			<div class="checkout-card">
+				<h3 style="margin-bottom: 20px; color: var(--primary);">
+					<i class="fas fa-shopping-cart"></i> Ringkasan Belanja
+				</h3>
+				
+				<div id="cartItems" class="cart-items"></div>
+				
+				<div class="total-row">
+					<span>Total</span>
+					<span id="totalHarga">Rp 0</span>
+				</div>
+				
 				<button class="btn-whatsapp" id="whatsappCheckoutBtn" type="button">
 					<i class="fab fa-whatsapp"></i>
-					Checkout via WhatsApp
+					CHAT VIA WHATSAPP
 				</button>
-                
-                <p style="font-size: 12px; color: #777; text-align: center; margin-top: 15px">
-                    <i class="fas fa-lock"></i> Data Anda aman dan terenkripsi
-                </p>
-            </div>
+				
+				<p style="font-size: 12px; color: #777; text-align: center; margin-top: 15px">
+					<i class="fas fa-bolt"></i> Klik, chat, selesai!
+				</p>
+			</div>
         </div>
     </div>
 
@@ -136,389 +118,111 @@
     <script src="js/products.js"></script>
     <script src="js/cart.js"></script>
     <script>
-        // ========== FUNGSI UTILITY ==========
-        
-        // Fungsi untuk mendapatkan total item (dari cart + beli langsung)
-        function getTotalCartItems() {
-            let total = 0;
-            
-            // Hitung dari cart normal
-            if (typeof cart !== 'undefined') {
-                total += cart.getTotalItems();
-            }
-            
-            // Hitung dari beli langsung (jika ada)
-            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
-            if (checkoutItem && checkoutItem.quantity) {
-                total += checkoutItem.quantity;
-            }
-            
-            return total;
-        }
+		// ========== FUNGSI UTILITY ==========
 
-        // Fungsi untuk update icon cart dengan total yang benar
-        function updateCartIconCount() {
-            const total = getTotalCartItems();
-            document.querySelectorAll('.cart-count').forEach(el => {
-                el.textContent = total;
-                el.style.display = total > 0 ? 'flex' : 'none';
-            });
-            console.log('Cart icon updated:', total);
-        }
+		// Fungsi untuk mendapatkan total item
+		function getTotalCartItems() {
+			let total = 0;
+			if (typeof cart !== 'undefined') {
+				total += cart.getTotalItems();
+			}
+			const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
+			if (checkoutItem && checkoutItem.quantity) {
+				total += checkoutItem.quantity;
+			}
+			return total;
+		}
 
-        // ========== FUNGSI DISPLAY CART ==========
-        
-        function displayCart() {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('totalHarga');
-            
-            if (!container || !totalEl) return;
-            
-            // Cek apakah dari beli langsung
-            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
-            
-            if (checkoutItem) {
-                // ========== BELI LANGSUNG ==========
-                const item = checkoutItem;
-                
-                // Hitung harga dengan varian
-                const tipeData = item.product.varian?.tipe?.find(t => t.kode === item.varian.tipe) || { nama: item.varian.tipe };
-                const hargaSatuan = (item.product.harga?.diskon || item.product.harga?.normal || 0) + (tipeData?.hargaTambahan || 0);
-                const total = hargaSatuan * item.quantity;
-                
-                // Buat array dengan format yang sama seperti cart.items
-                const directItems = [{
-                    id: item.product.id,
-                    nama: item.product.nama,
-                    gambar: item.product.gambar.utama,
-                    varian: {
-                        tipe: item.varian.tipe,
-                        tipeNama: tipeData?.nama || item.varian.tipe
-                    },
-                    harga: hargaSatuan,
-                    quantity: item.quantity
-                }];
-                
-                // Tampilkan dengan kontrol (sama seperti dari keranjang)
-				container.innerHTML = directItems.map((item, index) => {
-					return `
-						<div class="checkout-item" data-index="direct-${index}">
-							<img src="${item.gambar}" alt="${item.nama}" onerror="this.src='assets/images/default-product.jpg'">
-							<div class="item-details">
-								<div class="item-name">${item.nama}</div>
-								<div class="item-variant">
-									<i class="fas fa-tag"></i> ${item.varian.tipeNama}
-								</div>
-								<div class="item-controls">
-									<button class="qty-btn" onclick="updateQtyDirect(${index}, -1)" ${item.quantity <= 1 ? 'disabled' : ''}>
-										<i class="fas fa-minus"></i>
-									</button>
-									<input type="number" class="qty-input" value="${item.quantity}" 
-										   min="1" max="99" 
-										   onchange="updateQtyDirectInput(${index}, this.value)"
-										   onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
-									<button class="qty-btn" onclick="updateQtyDirect(${index}, 1)">
-										<i class="fas fa-plus"></i>
-									</button>
-									<span class="item-price">Rp ${(item.harga * item.quantity).toLocaleString()}</span>
-									<button class="delete-btn" onclick="confirmDeleteDirect(${index})" title="Hapus">
-										<i class="fas fa-trash"></i>
-									</button>
-								</div>
+		// Update icon cart
+		function updateCartIconCount() {
+			const total = getTotalCartItems();
+			document.querySelectorAll('.cart-count').forEach(el => {
+				el.textContent = total;
+				el.style.display = total > 0 ? 'flex' : 'none';
+			});
+		}
+
+		// ========== FUNGSI DISPLAY CART ==========
+
+		function displayCart() {
+			const container = document.getElementById('cartItems');
+			const totalEl = document.getElementById('totalHarga');
+			
+			if (!container || !totalEl) return;
+			
+			const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
+			
+			if (checkoutItem) {
+				// BELI LANGSUNG
+				const item = checkoutItem;
+				const tipeData = item.product.varian?.tipe?.find(t => t.kode === item.varian.tipe) || { nama: item.varian.tipe };
+				const hargaSatuan = (item.product.harga?.diskon || item.product.harga?.normal || 0) + (tipeData?.hargaTambahan || 0);
+				const total = hargaSatuan * item.quantity;
+				
+				container.innerHTML = `
+					<div class="checkout-item">
+						<img src="${item.product.gambar.utama}" alt="${item.product.nama}" onerror="this.src='assets/images/default-product.jpg'">
+						<div class="item-details">
+							<div class="item-name">${item.product.nama}</div>
+							<div class="item-variant">
+								<i class="fas fa-tag"></i> ${tipeData?.nama || item.varian.tipe}
+							</div>
+							<div class="item-controls" style="justify-content: space-between;">
+								<span>Jumlah: <strong>${item.quantity}</strong></span>
+								<span class="item-price">Rp ${(hargaSatuan * item.quantity).toLocaleString()}</span>
 							</div>
 						</div>
+					</div>
+				`;
+				totalEl.textContent = `Rp ${total.toLocaleString()}`;
+				
+			} else {
+				// DARI KERANJANG
+				const items = cart.items;
+				const total = cart.getSubtotal();
+				
+				if (items.length === 0) {
+					container.innerHTML = `
+						<div class="empty-cart">
+							<i class="fas fa-shopping-cart"></i>
+							<h3>Keranjang Belanja Kosong</h3>
+							<p>Belum ada produk yang ditambahkan</p>
+							<a href="products.html" class="btn-shop">
+								<i class="fas fa-arrow-left"></i> Belanja Sekarang
+							</a>
+						</div>
 					`;
-				}).join('');
-                
-                totalEl.textContent = `Rp ${total.toLocaleString()}`;
-                
-            } else {
-                // ========== DARI KERANJANG ==========
-                const items = cart.items;
-                const total = cart.getSubtotal();
-                
-                if (items.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-cart">
-                            <i class="fas fa-shopping-cart"></i>
-                            <h3>Keranjang Belanja Kosong</h3>
-                            <p>Belum ada produk yang ditambahkan ke keranjang</p>
-                            <a href="products.html" class="btn-shop">
-                                <i class="fas fa-arrow-left"></i> Belanja Sekarang
-                            </a>
-                        </div>
-                    `;
-                } else {
+				} else {
 					container.innerHTML = items.map((item, index) => {
-						const tipeNama = item.varian.tipeNama || 
-										(item.varian.tipe === 'PS' ? 'Punggung Standar' : 'Punggung Kecil');
-						
+						const tipeNama = item.varian.tipeNama || (item.varian.tipe === 'PS' ? 'Punggung Standar' : 'Punggung Kecil');
 						return `
-							<div class="checkout-item" data-index="${index}">
+							<div class="checkout-item">
 								<img src="${item.gambar}" alt="${item.nama}" onerror="this.src='assets/images/default-product.jpg'">
 								<div class="item-details">
 									<div class="item-name">${item.nama}</div>
 									<div class="item-variant">
 										<i class="fas fa-tag"></i> ${tipeNama}
 									</div>
-									<div class="item-controls">
-										<button class="qty-btn" onclick="updateQty(${index}, -1)" ${item.quantity <= 1 ? 'disabled' : ''}>
-											<i class="fas fa-minus"></i>
-										</button>
-										<input type="number" class="qty-input" value="${item.quantity}" 
-											   min="1" max="99" 
-											   onchange="updateQtyInput(${index}, this.value)"
-											   onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
-										<button class="qty-btn" onclick="updateQty(${index}, 1)">
-											<i class="fas fa-plus"></i>
-										</button>
+									<div class="item-controls" style="justify-content: space-between;">
+										<span>Jumlah: <strong>${item.quantity}</strong></span>
 										<span class="item-price">Rp ${(item.harga * item.quantity).toLocaleString()}</span>
-										<button class="delete-btn" onclick="confirmDelete(${index})" title="Hapus">
-											<i class="fas fa-trash"></i>
-										</button>
 									</div>
 								</div>
 							</div>
 						`;
 					}).join('');
-                }
-                
-                totalEl.textContent = `Rp ${total.toLocaleString()}`;
-            }
-            
-            // Update cart icon count
-            updateCartIconCount();
-        }
-
-        // ========== FUNGSI UNTUK BELI LANGSUNG ==========
-        
-        // Update quantity untuk beli langsung
-        function updateQtyDirect(index, change) {
-            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
-            if (!checkoutItem) return;
-            
-            const newQty = checkoutItem.quantity + change;
-            if (newQty < 1) {
-                confirmDeleteDirect(index);
-            } else {
-                checkoutItem.quantity = newQty;
-                sessionStorage.setItem('checkoutItem', JSON.stringify(checkoutItem));
-                displayCart();
-            }
-        }
-
-        // Konfirmasi hapus untuk beli langsung
-        function confirmDeleteDirect(index) {
-            const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
-            if (!checkoutItem) return;
-            
-            // Buat overlay modal
-            const overlay = document.createElement('div');
-            overlay.className = 'modal-overlay';
-            overlay.id = 'deleteModal';
-            
-            // Buat modal konfirmasi
-            const modal = document.createElement('div');
-            modal.className = 'modal-confirm';
-            modal.innerHTML = `
-                <div class="modal-icon">🗑️</div>
-                <h3>Hapus Item?</h3>
-                <p>Item <strong>"${checkoutItem.product.nama}"</strong> (${checkoutItem.varian.tipe}) akan dihapus dari pesanan Anda.</p>
-                <div class="modal-actions">
-                    <button class="btn-secondary" onclick="closeModal()">
-                        <i class="fas fa-times"></i> Batal
-                    </button>
-                    <button class="btn-danger" onclick="removeItemDirect()">
-                        <i class="fas fa-trash"></i> Ya, Hapus
-                    </button>
-                </div>
-            `;
-            
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-            
-            // Tutup modal jika klik di luar
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) {
-                    closeModal();
-                }
-            });
-        }
-
-        // Hapus item untuk beli langsung
-        function removeItemDirect() {
-            sessionStorage.removeItem('checkoutItem');
-            closeModal();
-            displayCart();
-
-            setTimeout(() => {
-                window.location.href = 'products.html';
-            }, 1500);
-        }
-
-        // ========== FUNGSI UNTUK KERANJANG NORMAL ==========
-        
-        // Update quantity untuk keranjang normal
-        function updateQty(index, change) {
-            const item = cart.items[index];
-            if (!item) return;
-            
-            const newQty = item.quantity + change;
-            if (newQty < 1) {
-                confirmDelete(index);
-            } else {
-                cart.updateQuantity(index, newQty);
-                displayCart();
-            }
-        }
-
-        // Confirm delete modal untuk keranjang normal
-        function confirmDelete(index) {
-            const item = cart.items[index];
-            if (!item) return;
-            
-            // Buat overlay modal
-            const overlay = document.createElement('div');
-            overlay.className = 'modal-overlay';
-            overlay.id = 'deleteModal';
-            
-            // Buat modal konfirmasi
-            const modal = document.createElement('div');
-            modal.className = 'modal-confirm';
-            modal.innerHTML = `
-                <div class="modal-icon">🗑️</div>
-                <h3>Hapus Item?</h3>
-                <p>Item <strong>"${item.nama}"</strong> (${item.varian.tipeNama}) akan dihapus dari keranjang belanja Anda.</p>
-                <div class="modal-actions">
-                    <button class="btn-secondary" onclick="closeModal()">
-                        <i class="fas fa-times"></i> Batal
-                    </button>
-                    <button class="btn-danger" onclick="removeItem(${index})">
-                        <i class="fas fa-trash"></i> Ya, Hapus
-                    </button>
-                </div>
-            `;
-            
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-            
-            // Tutup modal jika klik di luar
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) {
-                    closeModal();
-                }
-            });
-        }
-
-        // Remove item untuk keranjang normal
-        function removeItem(index) {
-            cart.remove(index);
-            closeModal();
-            displayCart();
-        }
-
-        // Close modal
-        function closeModal() {
-            const modal = document.getElementById('deleteModal');
-            if (modal) {
-                modal.remove();
-            }
-        }
-
-        // ========== FUNGSI VALIDASI DAN CHECKOUT ==========
-        
-        // Validasi form
-        function validateForm() {
-            const nama = document.getElementById('nama').value.trim();
-            const noWa = document.getElementById('noWa').value.trim();
-            const alamat = document.getElementById('alamat').value.trim();
-            
-            let isValid = true;
-            
-            // Reset error
-            document.getElementById('errorNama').textContent = '';
-            document.getElementById('errorWa').textContent = '';
-            document.getElementById('errorAlamat').textContent = '';
-            
-            document.getElementById('nama').classList.remove('error');
-            document.getElementById('noWa').classList.remove('error');
-            document.getElementById('alamat').classList.remove('error');
-            
-            // Validasi nama
-            if (!nama) {
-                document.getElementById('errorNama').textContent = 'Nama lengkap harus diisi';
-                document.getElementById('nama').classList.add('error');
-                isValid = false;
-            } else if (nama.length < 3) {
-                document.getElementById('errorNama').textContent = 'Nama terlalu pendek';
-                document.getElementById('nama').classList.add('error');
-                isValid = false;
-            }
-            
-            // Validasi nomor WA
-            if (!noWa) {
-                document.getElementById('errorWa').textContent = 'Nomor WhatsApp harus diisi';
-                document.getElementById('noWa').classList.add('error');
-                isValid = false;
-            } else if (!/^[0-9]{10,13}$/.test(noWa.replace(/[^0-9]/g, ''))) {
-                document.getElementById('errorWa').textContent = 'Nomor WhatsApp tidak valid (10-13 digit)';
-                document.getElementById('noWa').classList.add('error');
-                isValid = false;
-            }
-            
-            // Validasi alamat
-            if (!alamat) {
-                document.getElementById('errorAlamat').textContent = 'Alamat harus diisi';
-                document.getElementById('alamat').classList.add('error');
-                isValid = false;
-            } else if (alamat.length < 10) {
-                document.getElementById('errorAlamat').textContent = 'Alamat terlalu pendek, masukkan alamat lengkap';
-                document.getElementById('alamat').classList.add('error');
-                isValid = false;
-            }
-            
-            return isValid;
-        }
-
-		// Validate and checkout
-		function validateAndCheckout() {
-			try {
-				console.log('validateAndCheckout dipanggil');
-				
-				if (!validateForm()) {
-					// Scroll ke error pertama
-					const firstError = document.querySelector('.error');
-					if (firstError) {
-						firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-					}
-					return;
 				}
-				
-				checkoutWA();
-			} catch (error) {
-				console.error('Error di validateAndCheckout:', error);
-				alert('Terjadi kesalahan. Silakan coba lagi.');
+				totalEl.textContent = `Rp ${total.toLocaleString()}`;
 			}
+			
+			updateCartIconCount();
 		}
 
-		// Checkout via WhatsApp
+		// ========== FUNGSI CHECKOUT VIA WHATSAPP ==========
+
 		function checkoutWA() {
 			try {
-				console.log('checkoutWA dipanggil');
-				
-				const nama = document.getElementById('nama').value.trim();
-				const noWa = document.getElementById('noWa').value.trim();
-				const alamat = document.getElementById('alamat').value.trim();
-				const catatan = document.getElementById('catatan').value.trim();
-				
-				// Validasi ulang
-				if (!nama || !noWa || !alamat) {
-					alert('Harap isi semua field yang wajib!');
-					return;
-				}
-				
-				// Format nomor WA
-				const formattedNoWa = noWa.replace(/[^0-9]/g, '');
+				console.log('Memproses checkout...');
 				
 				// Ambil data items
 				const checkoutItem = JSON.parse(sessionStorage.getItem('checkoutItem'));
@@ -544,14 +248,7 @@
 				message += `*┃    PESANAN BARU    ┃*\n`;
 				message += `*┗━━━━━━━━━━━━━━━━━━━┛*\n\n`;
 				
-				message += `*📋 DATA PEMBELI*\n`;
-				message += `──────────────────\n`;
-				message += `*Nama:* ${nama}\n`;
-				message += `*No. WA:* ${formattedNoWa}\n`;
-				message += `*Alamat:* ${alamat}\n`;
-				if (catatan) message += `*Catatan:* ${catatan}\n`;
-				
-				message += `\n*🛒 DETAIL PESANAN*\n`;
+				message += `*🛒 DETAIL PESANAN*\n`;
 				message += `──────────────────\n`;
 				
 				items.forEach((item, index) => {
@@ -574,6 +271,13 @@
 				message += `──────────────────\n`;
 				message += `*Rp ${total.toLocaleString()}*\n\n`;
 				
+				message += `*📝 UNTUK MELENGKAPI PESANAN:*\n`;
+				message += `Silakan kirimkan data berikut:\n`;
+				message += `1. Nama lengkap\n`;
+				message += `2. Nomor WhatsApp aktif\n`;
+				message += `3. Alamat lengkap\n`;
+				message += `4. Catatan (jika ada)\n\n`;
+				
 				message += `*📅 WAKTU PESAN*\n`;
 				message += `${new Date().toLocaleString('id-ID', { 
 					weekday: 'long', 
@@ -593,24 +297,17 @@
 				// Buat URL WhatsApp
 				const waUrl = `https://wa.me/${noToko}?text=${encodeURIComponent(message)}`;
 				
-				// Buka WhatsApp - coba beberapa metode
-				console.log('Membuka WhatsApp dengan URL:', waUrl);
-				
-				// Metode 1: Langsung buka
-				window.open(waUrl, '_blank');
-				
-				// Metode 2: Untuk mobile, coba juga dengan location.href
-				setTimeout(() => {
-					if (!document.hasFocus()) {
-						// Jika sudah pindah, tidak perlu
-						return;
-					}
-					// Fallback
-					window.location.href = waUrl;
-				}, 500);
-				
-				// Tampilkan notifikasi
-				showNotification('Mengalihkan ke WhatsApp...', 'info');
+				// Buka WhatsApp
+				if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+					// Mobile - coba buka app dulu
+					window.location.href = `whatsapp://send?phone=${noToko}&text=${encodeURIComponent(message)}`;
+					setTimeout(() => {
+						window.location.href = waUrl;
+					}, 500);
+				} else {
+					// Desktop
+					window.open(waUrl, '_blank');
+				}
 				
 				// Kosongkan keranjang
 				setTimeout(() => {
@@ -621,119 +318,70 @@
 					} else {
 						sessionStorage.removeItem('checkoutItem');
 					}
-				}, 2000);
+					// Redirect ke produk setelah 2 detik
+					setTimeout(() => {
+						window.location.href = 'products.html';
+					}, 2000);
+				}, 1000);
 				
 			} catch (error) {
-				console.error('Error di checkoutWA:', error);
+				console.error('Error:', error);
 				alert('Gagal membuka WhatsApp. Silakan coba lagi.');
 			}
 		}
 
-		// ========== HANDLE TOMBOL WHATSAPP ==========
+		// ========== FUNGSI SEARCH ==========
+
+		function searchProducts() {
+			const searchInput = document.getElementById('searchInputHome');
+			const query = searchInput ? searchInput.value.trim() : '';
+			if (query) {
+				window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+			} else {
+				window.location.href = 'products.html';
+			}
+		}
+
+		// ========== INITIALIZE ==========
+
 		document.addEventListener('DOMContentLoaded', function() {
+			displayCart();
+			
+			// Cart icon click
+			const cartIcon = document.getElementById('cartIcon');
+			if (cartIcon) {
+				cartIcon.addEventListener('click', function() {
+					window.location.href = 'checkout.html';
+				});
+			}
+			
+			// Tombol WhatsApp
 			const waBtn = document.getElementById('whatsappCheckoutBtn');
 			if (waBtn) {
-				// Untuk mouse click
 				waBtn.addEventListener('click', function(e) {
 					e.preventDefault();
 					e.stopPropagation();
-					console.log('Tombol WhatsApp diklik');
-					validateAndCheckout();
+					checkoutWA();
 				});
 				
 				// Untuk touch di mobile
 				waBtn.addEventListener('touchstart', function(e) {
 					e.preventDefault();
 					e.stopPropagation();
-					console.log('Tombol WhatsApp disentuh (mobile)');
-					validateAndCheckout();
+					checkoutWA();
 				}, { passive: false });
 			}
+			
+			// Search enter key
+			const searchInput = document.getElementById('searchInputHome');
+			if (searchInput) {
+				searchInput.addEventListener('keypress', function(e) {
+					if (e.key === 'Enter') {
+						searchProducts();
+					}
+				});
+			}
 		});
-
-        // ========== FUNGSI NOTIFIKASI ==========
-        
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
-                font-weight: 500;
-            `;
-            notification.textContent = message;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 3000);
-        }
-
-        // ========== FUNGSI SEARCH ==========
-        
-        function searchProducts() {
-            const searchInput = document.getElementById('searchInputHome');
-            const query = searchInput ? searchInput.value.trim() : '';
-            
-            if (query) {
-                window.location.href = `products.html?search=${encodeURIComponent(query)}`;
-            } else {
-                window.location.href = 'products.html';
-            }
-        }
-
-        // ========== INITIALIZE ==========
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            displayCart();
-            
-            // Cart icon click
-            const cartIcon = document.getElementById('cartIcon');
-            if (cartIcon) {
-                cartIcon.addEventListener('click', function() {
-                    window.location.href = 'checkout.html';
-                });
-            }
-            
-            // Search enter key
-            const searchInput = document.getElementById('searchInputHome');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        searchProducts();
-                    }
-                });
-            }
-            
-            // Auto-format nomor WA
-            const waInput = document.getElementById('noWa');
-            if (waInput) {
-                waInput.addEventListener('input', function(e) {
-                    this.value = this.value.replace(/[^0-9]/g, '');
-                });
-            }
-            
-            // Listen untuk storage changes (dari tab lain)
-            window.addEventListener('storage', function(e) {
-                if (e.key === 'cart') {
-                    if (typeof cart !== 'undefined') {
-                        cart.items = JSON.parse(e.newValue) || [];
-                        displayCart();
-                    }
-                }
-            });
-        });
 
         // Add animation styles
         const style = document.createElement('style');
