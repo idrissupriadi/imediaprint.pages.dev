@@ -1806,6 +1806,46 @@ img{
 		font-size:1.1rem;
 	}
 
+	/* Perbaikan untuk tombol WhatsApp di mobile */
+	.btn-whatsapp {
+		width: 100%;
+		background: linear-gradient(135deg,#25d366,#128C7E);
+		color: #fff;
+		border: none;
+		padding: 1.2rem;
+		border-radius: 50px;
+		font-size: 1.2rem;
+		font-weight: 600;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		margin-top: 1rem;
+		transition: 0.3s;
+		-webkit-appearance: none; /* Penting untuk mobile */
+		-webkit-tap-highlight-color: transparent; /* Hilangkan highlight */
+		touch-action: manipulation; /* Optimasi touch */
+		z-index: 1000;
+		position: relative; /* Pastikan di atas elemen lain */
+	}
+
+	.btn-whatsapp:active {
+		transform: scale(0.98); /* Feedback saat ditekan */
+		opacity: 0.9;
+	}
+
+	/* Pastikan tidak ada elemen yang menutupi */
+	.checkout-card {
+		position: relative;
+		z-index: 1;
+	}
+
+	/* Debug - untuk melihat apakah tombol terkena event */
+	.btn-whatsapp.debug-active {
+		background: red !important;
+	}
+
 }
 
 @media (max-width:480px){
