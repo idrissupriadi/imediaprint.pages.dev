@@ -632,7 +632,7 @@ const Products = {
             tags: ["glossy", "hitam", "diskon"]
         },
 		{
-            id: "16",
+            id: "17",
             nama: "Hard Cover Glossy Merah",
             kategori: "Hard Cover Glossy",
             gambar: {
@@ -671,7 +671,7 @@ const Products = {
             tags: ["glossy", "hitam", "diskon"]
         },
 		{
-            id: "16",
+            id: "18",
             nama: "Hard Cover Glossy Ungu",
             kategori: "Hard Cover Glossy",
             gambar: {
@@ -710,7 +710,7 @@ const Products = {
             tags: ["glossy", "hitam", "diskon"]
         },
         {
-            id: "18",
+            id: "19",
             nama: "Hard Cover RCP Biru Muda Akar",
             kategori: "Hard Cover RCP",
             gambar: {
@@ -749,7 +749,7 @@ const Products = {
             tags: ["diamond", "silver", "mewah"]
         },
         {
-            id: "19",
+            id: "20",
             nama: "Hard Cover RCP Biru Tua Akar",
             kategori: "Hard Cover RCP",
             gambar: {
@@ -788,7 +788,7 @@ const Products = {
             tags: ["rcp", "marmer", "motif"]
         },
 		{
-            id: "20",
+            id: "21",
             nama: "Hard Cover RCP 70",
             kategori: "Hard Cover RCP",
             gambar: {
@@ -827,7 +827,7 @@ const Products = {
             tags: ["diamond", "silver", "mewah"]
         },
 		{
-            id: "21",
+            id: "22",
             nama: "Hard Cover RCP Putih",
             kategori: "Hard Cover RCP",
             gambar: {
@@ -866,7 +866,7 @@ const Products = {
             tags: ["diamond", "silver", "mewah"]
         },
 		{
-            id: "22",
+            id: "23",
             nama: "Hard Cover Glossy Silver",
             kategori: "Hard Cover Glossy",
             gambar: {
@@ -905,7 +905,7 @@ const Products = {
             tags: ["diamond", "silver", "mewah"]
         },
 		{
-            id: "23",
+            id: "24",
             nama: "Hard Cover Diamond Silver",
             kategori: "Hard Cover Diamond",
             gambar: {
