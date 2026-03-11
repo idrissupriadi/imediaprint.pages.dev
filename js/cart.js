@@ -241,11 +241,24 @@ class Cart {
      * @param {string} action - Aksi (add/update/remove/error)
      */
 	showNotification(item, action = 'add') {
+		// Validasi item
+		if (!item || typeof item !== 'object') {
+			console.error('Item tidak valid', item);
+			return;
+		}
+		
 		// Hapus notifikasi sebelumnya jika ada
 		const existingToast = document.querySelector('.toast-notification');
 		if (existingToast) {
 			existingToast.remove();
 		}
+
+		// Pastikan gambar ada
+		const gambar = (item.gambar || 
+					   item.product?.gambar?.utama || 
+					   DEFAULT_PRODUCT_IMAGE);
+		
+		const nama = item.nama || item.product?.nama || 'Produk';
 
 		// Buat element toast
 		const toast = document.createElement('div');
@@ -254,54 +267,54 @@ class Cart {
 		// Konfigurasi berdasarkan action
 		let icon = '✓';
 		let message = 'Ditambahkan ke keranjang';
-		let bgColor = 'linear-gradient(135deg, #a51533 0%, #cf1d3f 100%)'; // <-- UBAH KE MERAH (SESUAI THEME)
+		let bgColor = 'linear-gradient(135deg, #a51533 0%, #cf1d3f 100%)';
 		
 		if (action === 'update') {
 			icon = '↻';
 			message = 'Jumlah diperbarui';
-			bgColor = 'linear-gradient(135deg, #fcaf17 0%, #cf1d3f 100%)'; // ORANGE
+			bgColor = 'linear-gradient(135deg, #fcaf17 0%, #cf1d3f 100%)';
 		} else if (action === 'remove') {
 			icon = '✕';
 			message = 'Dihapus dari keranjang';
-			bgColor = 'linear-gradient(135deg, #f5515f 0%, #9f041b 100%)'; // MERAH TUA
+			bgColor = 'linear-gradient(135deg, #f5515f 0%, #9f041b 100%)';
 		} else if (action === 'error') {
 			icon = '⚠';
 			message = item.nama || 'Terjadi kesalahan';
-			bgColor = 'linear-gradient(135deg, #f5515f 0%, #9f041b 100%)'; // MERAH TUA
+			bgColor = 'linear-gradient(135deg, #f5515f 0%, #9f041b 100%)';
 		}
-        
-        // Isi toast
-        toast.innerHTML = `
-            <div class="toast-content" style="background: ${bgColor}">
-                <img src="${item.gambar || DEFAULT_PRODUCT_IMAGE}" alt="${item.nama || 'Produk'}" class="toast-image" onerror="this.src='${DEFAULT_PRODUCT_IMAGE}'">
-                <div class="toast-text">
-                    <div class="toast-title">${item.nama || 'Produk'}</div>
-                    <div class="toast-message">
-                        <span class="toast-icon">${icon}</span> ${message}
-                    </div>
-                </div>
-                ${action !== 'remove' && action !== 'error' ? '<a href="checkout.html" class="toast-action">Lihat</a>' : ''}
-            </div>
-            <div class="toast-progress"></div>
-        `;
-        
-        document.body.appendChild(toast);
-        
-        // Trigger reflow untuk animasi
-        toast.offsetHeight;
-        
-        // Tampilkan toast
-        setTimeout(() => {
-            toast.classList.add('toast-show');
-        }, 10);
-        
-        // Auto hilang setelah 3 detik
-        setTimeout(() => {
-            toast.classList.remove('toast-show');
-            toast.classList.add('toast-hide');
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
-    }
+		
+		// Isi toast
+		toast.innerHTML = `
+			<div class="toast-content" style="background: ${bgColor}">
+				<img src="${gambar}" alt="${nama}" class="toast-image" onerror="this.src='${DEFAULT_PRODUCT_IMAGE}'">
+				<div class="toast-text">
+					<div class="toast-title">${nama}</div>
+					<div class="toast-message">
+						<span class="toast-icon">${icon}</span> ${message}
+					</div>
+				</div>
+				${action !== 'remove' && action !== 'error' ? '<a href="checkout.html" class="toast-action">Lihat</a>' : ''}
+			</div>
+			<div class="toast-progress"></div>
+		`;
+		
+		document.body.appendChild(toast);
+		
+		// Trigger reflow untuk animasi
+		toast.offsetHeight;
+		
+		// Tampilkan toast
+		setTimeout(() => {
+			toast.classList.add('toast-show');
+		}, 10);
+		
+		// Auto hilang setelah 3 detik
+		setTimeout(() => {
+			toast.classList.remove('toast-show');
+			toast.classList.add('toast-hide');
+			setTimeout(() => toast.remove(), 300);
+		}, 3000);
+	}
 
     /**
      * Mengosongkan keranjang
