@@ -84,6 +84,8 @@
 	let currentProduct = null;
 	let selectedVarian = { tipe:null };
 	let quantity = 1;
+	let currentImageIndex = 0;
+	let productImages = [];
 
 
 	/* ================= LOAD PRODUCT ================= */
@@ -112,8 +114,29 @@
 
 		displayProduct();
 
-	}
+		/* ================= SEO META ================= */
 
+		document.title = `${currentProduct.nama} - IMPrintingOnline`;
+
+		const metaDesc = document.querySelector("meta[name='description']");
+		if(metaDesc){
+			metaDesc.setAttribute(
+				"content",
+				currentProduct.deskripsi?.pendek || currentProduct.nama
+			);
+		}
+
+		/* ================= OPEN GRAPH IMAGE ================= */
+
+		const ogImage = document.querySelector("meta[property='og:image']");
+		if(ogImage){
+			ogImage.setAttribute(
+				"content",
+				currentProduct.gambar?.utama || "assets/images/logo.png"
+			);
+		}
+
+	}
 
 	/* ================= DISPLAY PRODUCT ================= */
 
@@ -130,74 +153,159 @@
 
 		container.innerHTML = `
 
-		<div class="detail-image-container">
-			<img src="${p.gambar?.utama || 'assets/images/default-product.jpg'}"
-			alt="${p.nama || 'Produk'}"
-			class="detail-image">
-		</div>
+		<div class="product-layout">
 
-		<div class="detail-info">
+			<!-- ================= IMAGES ================= -->
 
-			<h1>${p.nama || "Produk"}</h1>
+			<div class="product-images">
 
-			<div class="detail-price">
-				<span class="current-price" id="hargaDisplay">
-				Rp ${hargaAwal.toLocaleString("id-ID")}
-				</span>
+				<div class="detail-image-container">
 
-				${hargaDiskon ? `
-				<span class="old-price">
-				Rp ${hargaNormal.toLocaleString("id-ID")}
-				</span>` : ""}
-			</div>
+					<button class="img-nav prev" onclick="prevImage()">
+						<i class="fas fa-chevron-left"></i>
+					</button>
 
-			<div class="varian-section">
+					<img id="mainImage"
+					src="${p.gambar?.utama || 'assets/images/default-product.jpg'}"
+					alt="${p.nama}"
+					class="detail-image">
 
-				<div class="varian-title">Pilih Tipe:</div>
-				<div class="varian-options" id="tipeOptions"></div>
+					<button class="img-nav next" onclick="nextImage()">
+						<i class="fas fa-chevron-right"></i>
+					</button>
 
-				<div class="varian-title">Jumlah:</div>
+				</div>
 
-				<div class="quantity-selector">
+				<div class="image-gallery">
 
-					<button class="quantity-btn"
-					onclick="updateQuantity(-1)">-</button>
+					${[p.gambar?.utama, ...(p.gambar?.gallery || [])].map(img=>`
 
-					<input type="text"
-					id="quantity"
-					class="quantity-input"
-					value="1"
-					inputmode="numeric">
+					<img src="${img}"
+					class="thumb"
+					onclick="changeImage('${img}')">
 
-					<button class="quantity-btn"
-					onclick="updateQuantity(1)">+</button>
+					`).join("")}
 
 				</div>
 
 			</div>
 
-			<div style="margin-top:20px">
 
-				<button class="btn-add-cart" onclick="addToCart()">
-				<i class="fas fa-cart-plus"></i> Tambah ke Keranjang
-				</button>
+			<!-- ================= PRODUCT INFO ================= -->
 
-				<button class="btn-buy-now" onclick="buyNow()">
-				<i class="fas fa-bolt"></i> Beli Sekarang
-				</button>
+			<div class="detail-info">
 
-			</div>
+				<h1>${p.nama || "Produk"}</h1>
 
-			<div class="product-description">
-				<h3><i class="fas fa-info-circle"></i> Deskripsi Produk</h3>
-				<p>${p.deskripsi?.panjang || p.deskripsi?.pendek || "Deskripsi produk tidak tersedia"}</p>
+				<div class="detail-price">
+
+					<span class="current-price" id="hargaDisplay">
+					Rp ${hargaAwal.toLocaleString("id-ID")}
+					</span>
+
+					${hargaDiskon ? `
+					<span class="old-price">
+					Rp ${hargaNormal.toLocaleString("id-ID")}
+					</span>
+					` : ""}
+
+				</div>
+
+
+				<!-- META -->
+
+				<div class="product-meta">
+
+					<span>
+						<i class="fas fa-box"></i>
+						Stok: ${p.stok}
+					</span>
+
+					<span>
+						<i class="fas fa-star"></i>
+						${p.penjualan?.rating || 4.5} Rating
+					</span>
+
+					<span>
+						<i class="fas fa-shopping-bag"></i>
+						${p.penjualan?.terjual || 0} Terjual
+					</span>
+
+				</div>
+
+
+				<!-- VARIAN -->
+
+				<div class="varian-section">
+
+					<div class="varian-title">Pilih Tipe:</div>
+
+					<div class="varian-options" id="tipeOptions"></div>
+
+
+					<div class="varian-title">Jumlah:</div>
+
+					<div class="quantity-selector">
+
+						<button class="quantity-btn"
+						onclick="updateQuantity(-1)">-</button>
+
+						<input type="text"
+						id="quantity"
+						class="quantity-input"
+						value="1"
+						inputmode="numeric">
+
+						<button class="quantity-btn"
+						onclick="updateQuantity(1)">+</button>
+
+					</div>
+
+				</div>
+
+
+				<!-- BUTTON -->
+
+				<div style="margin-top:20px">
+
+					<button class="btn-add-cart" onclick="addToCart()">
+						<i class="fas fa-cart-plus"></i> Tambah ke Keranjang
+					</button>
+
+					<button class="btn-buy-now" onclick="buyNow()">
+						<i class="fas fa-bolt"></i> Beli Sekarang
+					</button>
+
+				</div>
+
+
+				<!-- DESKRIPSI -->
+
+				<div class="product-description">
+
+					<h3>
+						<i class="fas fa-info-circle"></i>
+						Deskripsi Produk
+					</h3>
+
+					<p>
+					${p.deskripsi?.panjang || p.deskripsi?.pendek || "Deskripsi produk tidak tersedia"}
+					</p>
+
+				</div>
+
 			</div>
 
 		</div>
+
 		`;
 
+		/* ================= INIT IMAGE SLIDER ================= */
 
-		/* ====== LOAD VARIAN ====== */
+		initImages();
+
+
+		/* ================= LOAD VARIAN ================= */
 
 		const tipeOptions = document.getElementById("tipeOptions");
 
@@ -205,16 +313,44 @@
 
 			tipeOptions.innerHTML = p.varian.tipe.map(t=>{
 
-				const nama = t.nama || t.kode;
-
 				return `
-				<button class="varian-option"
-				onclick="selectTipe('${t.kode}',this)">
-				${nama}
-				</button>
+				<div class="varian-item">
+
+					<button class="varian-option"
+					onclick="selectTipe('${t.kode}',this)">
+
+						${t.nama}
+
+					</button>
+
+					<div class="varian-desc">
+						${t.deskripsi || ""}
+					</div>
+
+				</div>
 				`;
 
 			}).join("");
+
+		}
+
+
+		/* ================= AUTO SELECT VARIAN ================= */
+
+		if(p.varian?.tipe?.length){
+
+			selectedVarian.tipe = p.varian.tipe[0].kode;
+
+			setTimeout(()=>{
+
+				const first =
+				document.querySelector("#tipeOptions .varian-option");
+
+				if(first) first.classList.add("selected");
+
+				updateHarga();
+
+			},50);
 
 		}
 
@@ -224,6 +360,61 @@
 
 	}
 
+	function initImages(){
+
+		const p = currentProduct;
+
+		productImages = [
+			p.gambar?.utama,
+			...(p.gambar?.gallery || [])
+		].filter(Boolean);
+
+		currentImageIndex = 0;
+
+		setTimeout(()=>{
+			showImage(0);
+		},50);
+
+	}
+
+	function showImage(index){
+
+		if(!productImages.length) return;
+
+		if(index < 0) index = productImages.length - 1;
+		if(index >= productImages.length) index = 0;
+
+		currentImageIndex = index;
+
+		const img = document.getElementById("mainImage");
+
+		if(img){
+			img.src = productImages[currentImageIndex];
+		}
+
+		/* highlight thumbnail aktif */
+		document.querySelectorAll(".thumb").forEach((thumb,i)=>{
+			thumb.classList.toggle("active", i === currentImageIndex);
+		});
+
+	}
+
+	function nextImage(){
+		showImage(currentImageIndex + 1);
+	}
+
+	function prevImage(){
+		showImage(currentImageIndex - 1);
+	}
+
+	function changeImage(src){
+
+		const index = productImages.indexOf(src);
+
+		if(index !== -1){
+			showImage(index);
+		}
+	}
 
 	/* ================= QUANTITY ================= */
 
