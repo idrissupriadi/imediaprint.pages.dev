@@ -443,22 +443,18 @@ img{
 
 	.product-meta{
 		display:flex;
-		justify-content:space-between;
-		align-items:center;
-		font-size:0.85rem;
-		color:#777;
-		margin-bottom:6px;
+		gap:15px;
+		margin:10px 0;
+		font-size:14px;
+		color:#555;
 	}
 
-	.product-rating{
-		display:flex;
-		align-items:center;
-		gap:4px;
-		color:#f5a623;
+	.product-meta i{
+		margin-right:5px;
 	}
 
-	.product-sold{
-		color:#888;
+	.product-meta .fa-star{
+		color:#f59e0b;
 	}
 
 	.product-image-wrapper{
@@ -503,6 +499,18 @@ img{
 		padding:2px 6px;
 		font-size:0.75rem;
 		border-radius:4px;
+	}
+
+	.varian-item{
+		display:flex;
+		flex-direction:column;
+	}
+
+	.varian-desc{
+		font-size:0.85rem;
+		color:#666;
+		margin-top:4px;
+		margin-left:5px;
 	}
 	
 	/* Badge Diskon */
@@ -898,15 +906,19 @@ img{
 
 
 /* PRODUCT DETAIL */
-
-	.product-detail{
+	.product-layout{
 		display:grid;
-		grid-template-columns:1fr 1fr;
-		gap:3rem;
+		grid-template-columns:420px minmax(0,1fr);
+		gap:40px;
+		align-items:start;
 		background:#fff;
 		border-radius:20px;
 		padding:2rem;
 		box-shadow:0 5px 20px rgba(0,0,0,0.05);
+	}
+
+	.product-images{
+		width:100%;
 	}
 
 	/* IMAGE */
@@ -916,11 +928,14 @@ img{
 		border-radius:15px;
 		overflow:hidden;
 		box-shadow:0 5px 15px rgba(0,0,0,0.1);
+		margin-bottom:12px;
+		background:#fff;
 	}
 
 	.detail-image{
 		width:100%;
-		height:auto;
+		height:420px;
+		object-fit:cover;
 		display:block;
 		transition:transform .3s;
 	}
@@ -929,6 +944,78 @@ img{
 		transform:scale(1.03);
 	}
 
+	/* tombol panah */
+
+	.img-nav{
+		position:absolute;
+		top:50%;
+		transform:translateY(-50%);
+		background:rgba(0,0,0,0.5);
+		color:white;
+		border:none;
+		width:42px;
+		height:42px;
+		border-radius:50%;
+		cursor:pointer;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		z-index:2;
+	}
+
+	.img-nav.prev{
+		left:10px;
+	}
+
+	.img-nav.next{
+		right:10px;
+	}
+
+	.img-nav:hover{
+		background:black;
+	}
+
+	/* gallery */
+
+	.image-gallery{
+		display:flex;
+		gap:10px;
+		align-items:center;
+		margin-top:10px;
+		overflow-x:auto;
+		padding-bottom:5px;
+	}
+
+	.image-gallery::-webkit-scrollbar{
+		height:6px;
+	}
+
+	.image-gallery::-webkit-scrollbar-thumb{
+		background:#ddd;
+		border-radius:10px;
+	}
+
+	/* thumbnail */
+
+	.thumb{
+		width:60px;
+		height:60px;
+		object-fit:cover;
+		cursor:pointer;
+		border-radius:8px;
+		border:2px solid transparent;
+		transition:all .2s ease;
+		flex-shrink:0;
+	}
+
+	.thumb:hover{
+		transform:scale(1.05);
+	}
+
+	.thumb.active{
+		border-color:#ff6600;
+		box-shadow:0 2px 8px rgba(0,0,0,0.2);
+	}
 	/* INFO */
 
 	.detail-info h1{
@@ -938,6 +1025,10 @@ img{
 	}
 
 	/* PRICE BOX */
+
+	.detail-info{
+		max-width:600px;
+	}
 
 	.detail-price{
 		background:linear-gradient(135deg,#a51533,#cf1d3f);
@@ -1750,10 +1841,13 @@ img{
 		font-size:1.6rem;
 	}
 
-	.product-detail{
+	.product-layout{
 		grid-template-columns:1fr;
 		gap:2rem;
-		padding:1.5rem;
+	}
+
+	.detail-image{
+		height:320px;
 	}
 
 	.detail-info h1{
