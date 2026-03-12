@@ -5,944 +5,1183 @@
 
 const Products = {
     data: [
-        {
-            id: "1",
-            nama: "Hard Cover Bludru Abu-abu",
-            kategori: "Hard Cover Bludru",
-            gambar: {
-                utama: "assets/images/bluabu.jpg",
-                gallery: ["assets/images/bluabu-1.jpg", "assets/images/bluabu-2.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover bludru warna abu-abu elegan",
-                panjang: "Hard cover dengan bahan bludru berkualitas, cocok untuk buku tahunan, skripsi, atau dokumen penting. Tersedia pilihan punggung standar dan punggung kecil."
-            },
-            harga: {
-                normal: 4000,
-                diskon: null // null berarti tidak ada diskon
-            },
-            penjualan: {
-                terjual: 125,
-                rating: 4.5
-            },
-            stok: 200,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        deskripsi: "Punggung buku ukuran standar",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        deskripsi: "Punggung buku ukuran kecil/hemat",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: true,
-            berat: 200, // dalam gram
-            tags: ["bludru", "abu-abu", "elegan"]
-        },
-        {
-            id: "2",
-            nama: "Hard Cover Bludru Biru",
-            kategori: "Hard Cover Bludru",
-            gambar: {
-                utama: "assets/images/blubir.jpg",
-                gallery: ["assets/images/blubir-1.jpg", "assets/images/blubir-2.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover bludru warna biru elegan",
-                panjang: "Hard cover dengan bahan bludru berkualitas, warna biru yang elegan cocok untuk berbagai kebutuhan percetakan."
-            },
-            harga: {
-                normal: 4000,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 98,
-                rating: 4.7
-            },
-            stok: 200,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: true,
-            berat: 200,
-            tags: ["bludru", "biru", "elegan"]
-        },
-        {
-            id: "3",
-            nama: "Hard Cover Bludru Coklat",
-            kategori: "Hard Cover Bludru",
-            gambar: {
-                utama: "assets/images/blucok.jpg",
-                gallery: ["assets/images/blucok-1.jpg", "assets/images/blucok-2.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover bludru warna coklat elegan",
-                panjang: "Hard cover bludru warna coklat dengan tekstur lembut dan elegan."
-            },
-            harga: {
-                normal: 4000,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 156,
-                rating: 4.6
-            },
-            stok: 200,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: true,
-            berat: 200,
-            tags: ["bludru", "coklat", "elegan"]
-        },
-        {
-            id: "4",
-            nama: "Hard Cover Bludru Hijau",
-            kategori: "Hard Cover Bludru",
-            gambar: {
-                utama: "assets/images/bluhij.jpg",
-                gallery: ["assets/images/bluhij-1.jpg", "assets/images/bluhij-2.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover bludru warna hijau elegan",
-                panjang: "Hard cover bludru warna hijau segar untuk tampilan yang berbeda."
-            },
-            harga: {
-                normal: 4000,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 87,
-                rating: 4.4
-            },
-            stok: 200,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: true,
-            berat: 200,
-            tags: ["bludru", "hijau", "elegan"]
-        },
-        {
-            id: "5",
-            nama: "Hard Cover Bludru Hitam",
-            kategori: "Hard Cover Bludru",
-            gambar: {
-                utama: "assets/images/bluhit.jpg",
-                gallery: ["assets/images/bluhit-1.jpg", "assets/images/bluhit-2.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover bludru warna hitam elegan",
-                panjang: "Hard cover bludru warna hitam klasik, cocok untuk berbagai kesempatan."
-            },
-            harga: {
-                normal: 4000,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 213,
-                rating: 4.8
-            },
-            stok: 200,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: true,
-            berat: 200,
-            tags: ["bludru", "hitam", "klasik"]
-        },
+
 		{
-            id: "6",
-            nama: "Hard Cover Bludru Marun",
-            kategori: "Hard Cover Bludru",
-            gambar: {
-                utama: "assets/images/blumar.jpg",
-                gallery: ["assets/images/blumar-1.jpg", "assets/images/blumar-2.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover bludru warna hitam elegan",
-                panjang: "Hard cover bludru warna hitam klasik, cocok untuk berbagai kesempatan."
-            },
-            harga: {
-                normal: 4000,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 213,
-                rating: 4.8
-            },
-            stok: 200,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: true,
-            berat: 200,
-            tags: ["bludru", "hitam", "klasik"]
-        },
+			id: "1",
+			nama: "Hard Cover Bludru Abu-abu",
+			kategori: "Hard Cover Bludru",
+			gambar: {
+				utama: "assets/images/bluabu.jpg",
+				gallery: [
+					"assets/images/bluabu-1.jpg",
+					"assets/images/bluabu-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan bludru warna abu-abu elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan bludru premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 4000,
+				diskon: null
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"bludru",
+				"abu-abu"
+			]
+		},
+
 		{
-            id: "7",
-            nama: "Hard Cover Bludru Ungu",
-            kategori: "Hard Cover Bludru",
-            gambar: {
-                utama: "assets/images/blungu.jpg",
-                gallery: ["assets/images/blungu-1.jpg", "assets/images/blungu-2.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover bludru warna hitam elegan",
-                panjang: "Hard cover bludru warna hitam klasik, cocok untuk berbagai kesempatan."
-            },
-            harga: {
-                normal: 4000,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 213,
-                rating: 4.8
-            },
-            stok: 200,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: true,
-            berat: 200,
-            tags: ["bludru", "hitam", "klasik"]
-        },
+			id: "2",
+			nama: "Hard Cover Bludru Biru",
+			kategori: "Hard Cover Bludru",
+			gambar: {
+				utama: "assets/images/blubir.jpg",
+				gallery: [
+					"assets/images/blubir-1.jpg",
+					"assets/images/blubir-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan bludru warna biru elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan bludru premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 4000,
+				diskon: null
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"bludru",
+				"biru"
+			]
+		},
+
 		{
-            id: "8",
-            nama: "Hard Cover Diamond Gold",
-            kategori: "Hard Cover Diamond",
-            gambar: {
-                utama: "assets/images/diagol.jpg",
-                gallery: ["assets/images/diagol-1.jpg", "assets/images/diagol-2.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover bludru warna hitam elegan",
-                panjang: "Hard cover bludru warna hitam klasik, cocok untuk berbagai kesempatan."
-            },
-            harga: {
-                normal: 4000,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 213,
-                rating: 4.8
-            },
-            stok: 200,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: true,
-            berat: 200,
-            tags: ["bludru", "hitam", "klasik"]
-        },
-        {
-            id: "9",
-            nama: "Hard Cover Diamond Biru",
-            kategori: "Hard Cover Diamond",
-            gambar: {
-                utama: "assets/images/diabir.jpg",
-                gallery: ["assets/images/diabir-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna putih mengkilap",
-                panjang: "Hard cover dengan finishing glossy yang mengkilap dan tahan lama."
-            },
-            harga: {
-                normal: 4500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 67,
-                rating: 4.3
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "putih", "mengkilap"]
-        },
+			id: "3",
+			nama: "Hard Cover Bludru Coklat",
+			kategori: "Hard Cover Bludru",
+			gambar: {
+				utama: "assets/images/blucok.jpg",
+				gallery: [
+					"assets/images/blucok-1.jpg",
+					"assets/images/blucok-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan bludru warna coklat elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan bludru premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 4000,
+				diskon: 3800
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"bludru",
+				"coklat"
+			]
+		},
+
 		{
-            id: "10",
-            nama: "Hard Cover Diamond Hijau",
-            kategori: "Hard Cover Diamond",
-            gambar: {
-                utama: "assets/images/diahij.jpg",
-                gallery: ["assets/images/diahij-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna putih mengkilap",
-                panjang: "Hard cover dengan finishing glossy yang mengkilap dan tahan lama."
-            },
-            harga: {
-                normal: 4500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 67,
-                rating: 4.3
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "putih", "mengkilap"]
-        },
+			id: "4",
+			nama: "Hard Cover Bludru Hijau",
+			kategori: "Hard Cover Bludru",
+			gambar: {
+				utama: "assets/images/bluhij.jpg",
+				gallery: [
+					"assets/images/bluhij-1.jpg",
+					"assets/images/bluhij-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan bludru warna hijau elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan bludru premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 4000,
+				diskon: 3800
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"bludru",
+				"hijau"
+			]
+		},
+
 		{
-            id: "11",
-            nama: "Hard Cover Diamond Hitam",
-            kategori: "Hard Cover Diamond",
-            gambar: {
-                utama: "assets/images/diahit.jpg",
-                gallery: ["assets/images/diahit-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna putih mengkilap",
-                panjang: "Hard cover dengan finishing glossy yang mengkilap dan tahan lama."
-            },
-            harga: {
-                normal: 4500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 67,
-                rating: 4.3
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "putih", "mengkilap"]
-        },
+			id: "5",
+			nama: "Hard Cover Bludru Hitam",
+			kategori: "Hard Cover Bludru",
+			gambar: {
+				utama: "assets/images/bluhit.jpg",
+				gallery: [
+					"assets/images/bluhit-1.jpg",
+					"assets/images/bluhit-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan bludru warna hitam elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan bludru premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 4000,
+				diskon: 3800
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"bludru",
+				"hitam"
+			]
+		},
+
 		{
-            id: "12",
-            nama: "Hard Cover Diamond Krem",
-            kategori: "Hard Cover Diamond",
-            gambar: {
-                utama: "assets/images/diakrem.jpg",
-                gallery: ["assets/images/diakrem-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna putih mengkilap",
-                panjang: "Hard cover dengan finishing glossy yang mengkilap dan tahan lama."
-            },
-            harga: {
-                normal: 4500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 67,
-                rating: 4.3
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "putih", "mengkilap"]
-        },
+			id: "6",
+			nama: "Hard Cover Bludru Merah Marun",
+			kategori: "Hard Cover Bludru",
+			gambar: {
+				utama: "assets/images/blumar.jpg",
+				gallery: [
+					"assets/images/blumar-1.jpg",
+					"assets/images/blumar-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan bludru warna merah marun elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan bludru premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 4000,
+				diskon: 3800
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"bludru",
+				"merah marun"
+			]
+		},
+
 		{
-            id: "13",
-            nama: "Hard Cover Diamond Merah",
-            kategori: "Hard Cover Diamond",
-            gambar: {
-                utama: "assets/images/diamer.jpg",
-                gallery: ["assets/images/diamer-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna putih mengkilap",
-                panjang: "Hard cover dengan finishing glossy yang mengkilap dan tahan lama."
-            },
-            harga: {
-                normal: 4500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 67,
-                rating: 4.3
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "putih", "mengkilap"]
-        },
+			id: "7",
+			nama: "Hard Cover Bludru Ungu",
+			kategori: "Hard Cover Bludru",
+			gambar: {
+				utama: "assets/images/blungu.jpg",
+				gallery: [
+					"assets/images/blungu-1.jpg",
+					"assets/images/blungu-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan bludru warna ungu elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan bludru premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 4000,
+				diskon: null
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"bludru",
+				"ungu"
+			]
+		},
+
 		{
-            id: "14",
-            nama: "Hard Cover Glossy Biru",
-            kategori: "Hard Cover Glossy",
-            gambar: {
-                utama: "assets/images/glossybr.jpg",
-                gallery: ["assets/images/glossybr-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna putih mengkilap",
-                panjang: "Hard cover dengan finishing glossy yang mengkilap dan tahan lama."
-            },
-            harga: {
-                normal: 4500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 67,
-                rating: 4.3
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "putih", "mengkilap"]
-        },
-        {
-            id: "15",
-            nama: "Hard Cover Glossy Hijau",
-            kategori: "Hard Cover Glossy",
-            gambar: {
-                utama: "assets/images/glossyhj.jpg",
-                gallery: ["assets/images/glossyhj-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna hitam mengkilap",
-                panjang: "Hard cover glossy hitam dengan permukaan mengkilap dan elegan."
-            },
-            harga: {
-                normal: 4500,
-                diskon: 4000 // Diskon Rp 500
-            },
-            penjualan: {
-                terjual: 89,
-                rating: 4.6
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "hitam", "diskon"]
-        },
+			id: "8",
+			nama: "Hard Cover Diamond Gold",
+			kategori: "Hard Cover Diamond",
+			gambar: {
+				utama: "assets/images/diagol.jpg",
+				gallery: [
+					"assets/images/diagol-1.jpg",
+					"assets/images/diagol-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna kuning emas elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"diamond",
+				"emas"
+			]
+		},
+
 		{
-            id: "16",
-            nama: "Hard Cover Glossy Gold",
-            kategori: "Hard Cover Glossy",
-            gambar: {
-                utama: "assets/images/glossygold.jpg",
-                gallery: ["assets/images/glossygold-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna hitam mengkilap",
-                panjang: "Hard cover glossy hitam dengan permukaan mengkilap dan elegan."
-            },
-            harga: {
-                normal: 4500,
-                diskon: 4000 // Diskon Rp 500
-            },
-            penjualan: {
-                terjual: 89,
-                rating: 4.6
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "hitam", "diskon"]
-        },
+			id: "9",
+			nama: "Hard Cover Diamond Biru",
+			kategori: "Hard Cover Diamond",
+			gambar: {
+				utama: "assets/images/diabir.jpg",
+				gallery: [
+					"assets/images/diabir-1.jpg",
+					"assets/images/diabir-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna biru elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"diamond",
+				"biru"
+			]
+		},
+
 		{
-            id: "17",
-            nama: "Hard Cover Glossy Merah",
-            kategori: "Hard Cover Glossy",
-            gambar: {
-                utama: "assets/images/glossymr.jpg",
-                gallery: ["assets/images/glossymr-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna hitam mengkilap",
-                panjang: "Hard cover glossy hitam dengan permukaan mengkilap dan elegan."
-            },
-            harga: {
-                normal: 4500,
-                diskon: 4000 // Diskon Rp 500
-            },
-            penjualan: {
-                terjual: 89,
-                rating: 4.6
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "hitam", "diskon"]
-        },
+			id: "10",
+			nama: "Hard Cover Diamond Hijau",
+			kategori: "Hard Cover Diamond",
+			gambar: {
+				utama: "assets/images/diahij.jpg",
+				gallery: [
+					"assets/images/diahij-1.jpg",
+					"assets/images/diahij-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna hijau elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"diamond",
+				"hijau"
+			]
+		},
+
 		{
-            id: "18",
-            nama: "Hard Cover Glossy Ungu",
-            kategori: "Hard Cover Glossy",
-            gambar: {
-                utama: "assets/images/glossyungu.jpg",
-                gallery: ["assets/images/glossyungu-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover glossy warna hitam mengkilap",
-                panjang: "Hard cover glossy hitam dengan permukaan mengkilap dan elegan."
-            },
-            harga: {
-                normal: 4500,
-                diskon: 4000 // Diskon Rp 500
-            },
-            penjualan: {
-                terjual: 89,
-                rating: 4.6
-            },
-            stok: 150,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 220,
-            tags: ["glossy", "hitam", "diskon"]
-        },
-        {
-            id: "19",
-            nama: "Hard Cover RCP Biru Muda Akar",
-            kategori: "Hard Cover RCP",
-            gambar: {
-                utama: "assets/images/rcpbma.jpg",
-                gallery: ["assets/images/rcpbma-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover diamond dengan efek silver",
-                panjang: "Hard cover dengan efek diamond yang berkilau, cocok untuk buku mewah."
-            },
-            harga: {
-                normal: 5500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 45,
-                rating: 4.9
-            },
-            stok: 100,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 500 // Tambahan untuk diamond
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 500
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 250,
-            tags: ["diamond", "silver", "mewah"]
-        },
-        {
-            id: "20",
-            nama: "Hard Cover RCP Biru Tua Akar",
-            kategori: "Hard Cover RCP",
-            gambar: {
-                utama: "assets/images/rcpbta.jpg",
-                gallery: ["assets/images/rcpbta-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover RCP motif marmer",
-                panjang: "Hard cover RCP dengan motif marmer yang elegan dan unik."
-            },
-            harga: {
-                normal: 5000,
-                diskon: 4500
-            },
-            penjualan: {
-                terjual: 34,
-                rating: 4.5
-            },
-            stok: 120,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 0
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 0
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 230,
-            tags: ["rcp", "marmer", "motif"]
-        },
+			id: "11",
+			nama: "Hard Cover Diamond Hitam",
+			kategori: "Hard Cover Diamond",
+			gambar: {
+				utama: "assets/images/diahit.jpg",
+				gallery: [
+					"assets/images/diahit-1.jpg",
+					"assets/images/diahit-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna hitam elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"diamond",
+				"hitam"
+			]
+		},
+
 		{
-            id: "21",
-            nama: "Hard Cover RCP 70",
-            kategori: "Hard Cover RCP",
-            gambar: {
-                utama: "assets/images/rcp70.jpg",
-                gallery: ["assets/images/rcp70-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover diamond dengan efek silver",
-                panjang: "Hard cover dengan efek diamond yang berkilau, cocok untuk buku mewah."
-            },
-            harga: {
-                normal: 5500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 45,
-                rating: 4.9
-            },
-            stok: 100,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 500 // Tambahan untuk diamond
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 500
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 250,
-            tags: ["diamond", "silver", "mewah"]
-        },
+			id: "12",
+			nama: "Hard Cover Diamond Krem",
+			kategori: "Hard Cover Diamond",
+			gambar: {
+				utama: "assets/images/diakrem.jpg",
+				gallery: [
+					"assets/images/diakrem-1.jpg",
+					"assets/images/diakrem-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna krem/putih tulang elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"diamond",
+				"krem"
+			]
+		},
+
 		{
-            id: "22",
-            nama: "Hard Cover RCP Putih",
-            kategori: "Hard Cover RCP",
-            gambar: {
-                utama: "assets/images/rcpput.jpg",
-                gallery: ["assets/images/rcpput-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover diamond dengan efek silver",
-                panjang: "Hard cover dengan efek diamond yang berkilau, cocok untuk buku mewah."
-            },
-            harga: {
-                normal: 5500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 45,
-                rating: 4.9
-            },
-            stok: 100,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 500 // Tambahan untuk diamond
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 500
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 250,
-            tags: ["diamond", "silver", "mewah"]
-        },
+			id: "13",
+			nama: "Hard Cover Diamond Merah",
+			kategori: "Hard Cover Diamond",
+			gambar: {
+				utama: "assets/images/diamer.jpg",
+				gallery: [
+					"assets/images/diamer-1.jpg",
+					"assets/images/diamer-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna merah elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"diamond",
+				"merah"
+			]
+		},
+
 		{
-            id: "23",
-            nama: "Hard Cover Glossy Silver",
-            kategori: "Hard Cover Glossy",
-            gambar: {
-                utama: "assets/images/glossysil.jpg",
-                gallery: ["assets/images/glossysil-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover diamond dengan efek silver",
-                panjang: "Hard cover dengan efek diamond yang berkilau, cocok untuk buku mewah."
-            },
-            harga: {
-                normal: 5500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 45,
-                rating: 4.9
-            },
-            stok: 100,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 500 // Tambahan untuk diamond
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 500
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 250,
-            tags: ["diamond", "silver", "mewah"]
-        },
+			id: "14",
+			nama: "Hard Cover Glossy Biru",
+			kategori: "Hard Cover Glossy",
+			gambar: {
+				utama: "assets/images/glossybr.jpg",
+				gallery: [
+					"assets/images/glossybr-1.jpg",
+					"assets/images/glossybr-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna biru glossy mengkilap.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3500,
+				diskon: 3300
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"glossy",
+				"biru"
+			]
+		},
+
 		{
-            id: "24",
-            nama: "Hard Cover Diamond Silver",
-            kategori: "Hard Cover Diamond",
-            gambar: {
-                utama: "assets/images/diasil.jpg",
-                gallery: ["assets/images/diasil-1.jpg"]
-            },
-            deskripsi: {
-                pendek: "Hard cover diamond dengan efek silver",
-                panjang: "Hard cover dengan efek diamond yang berkilau, cocok untuk buku mewah."
-            },
-            harga: {
-                normal: 5500,
-                diskon: null
-            },
-            penjualan: {
-                terjual: 45,
-                rating: 4.9
-            },
-            stok: 100,
-            varian: {
-                tipe: [
-                    {
-                        kode: "PS",
-                        nama: "Punggung Standar (PS)",
-                        hargaTambahan: 500 // Tambahan untuk diamond
-                    },
-                    {
-                        kode: "PK",
-                        nama: "Punggung Kecil (PK)",
-                        hargaTambahan: 500
-                    }
-                ]
-            },
-            unggulan: false,
-            berat: 250,
-            tags: ["diamond", "silver", "mewah"]
-        }
+			id: "15",
+			nama: "Hard Cover Glossy Hijau",
+			kategori: "Hard Cover Glossy",
+			gambar: {
+				utama: "assets/images/glossyhj.jpg",
+				gallery: [
+					"assets/images/glossyhj-1.jpg",
+					"assets/images/glossyhj-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna hijau glossy mengkilap.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3500,
+				diskon: 3300
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"glossy",
+				"hijau"
+			]
+		},
+
+		{
+			id: "16",
+			nama: "Hard Cover Glossy Emas",
+			kategori: "Hard Cover Glossy",
+			gambar: {
+				utama: "assets/images/glossygold.jpg",
+				gallery: [
+					"assets/images/glossygold-1.jpg",
+					"assets/images/glossygold-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna emas glossy mengkilap.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3500,
+				diskon: 3300
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"glossy",
+				"emas"
+			]
+		},
+
+		{
+			id: "17",
+			nama: "Hard Cover Glossy Merah",
+			kategori: "Hard Cover Glossy",
+			gambar: {
+				utama: "assets/images/glossymr.jpg",
+				gallery: [
+					"assets/images/glossymr-1.jpg",
+					"assets/images/glossymr-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna merah glossy mengkilap.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3500,
+				diskon: 3300
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"glossy",
+				"merah"
+			]
+		},
+
+		{
+			id: "18",
+			nama: "Hard Cover Glossy Ungu",
+			kategori: "Hard Cover Glossy",
+			gambar: {
+				utama: "assets/images/glossyungu.jpg",
+				gallery: [
+					"assets/images/glossyungu-1.jpg",
+					"assets/images/glossyungu-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna ungu glossy mengkilap.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3500,
+				diskon: null
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"glossy",
+				"ungu"
+			]
+		},
+
+		{
+			id: "19",
+			nama: "Hard Cover RCP Biru Muda Motif",
+			kategori: "Hard Cover RCP",
+			gambar: {
+				utama: "assets/images/rcpbma.jpg",
+				gallery: [
+					"assets/images/rcpbma-1.jpg",
+					"assets/images/rcpbma-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna biru muda motif akar elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"rcp",
+				"biru muda"
+			]
+		},
+
+		{
+			id: "20",
+			nama: "Hard Cover RCP Biru Tua Motif",
+			kategori: "Hard Cover RCP",
+			gambar: {
+				utama: "assets/images/rcpbta.jpg",
+				gallery: [
+					"assets/images/rcpbta-1.jpg",
+					"assets/images/rcpbta-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna biru tua motif akar elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"rcp",
+				"biru tua"
+			]
+		},
+
+		{
+			id: "21",
+			nama: "Hard Cover RCP 70 Coklat Batik",
+			kategori: "Hard Cover RCP",
+			gambar: {
+				utama: "assets/images/rcp70.jpg",
+				gallery: [
+					"assets/images/rcp70-1.jpg",
+					"assets/images/rcp70-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna coklat bermotif batik elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3500,
+				diskon: 3300
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"rcp",
+				"batik"
+			]
+		},
+
+		{
+			id: "22",
+			nama: "Hard Cover RCP Putih Motif Kembang",
+			kategori: "Hard Cover RCP",
+			gambar: {
+				utama: "assets/images/rcpput.jpg",
+				gallery: [
+					"assets/images/rcpput-1.jpg",
+					"assets/images/rcpput-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna putih dengan motif kembang elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"rcp",
+				"putih kembang"
+			]
+		},
+
+		{
+			id: "23",
+			nama: "Hard Cover Glossy Silver",
+			kategori: "Hard Cover Glossy",
+			gambar: {
+				utama: "assets/images/glossysil.jpg",
+				gallery: [
+					"assets/images/glossysil-1.jpg",
+					"assets/images/glossysil-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna silver glossy mengkilap elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3500,
+				diskon: null
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"glossy",
+				"silver"
+			]
+		},
+
+		{
+			id: "24",
+			nama: "Hard Cover Diamond Silver",
+			kategori: "Hard Cover Diamond",
+			gambar: {
+				utama: "assets/images/diasil.jpg",
+				gallery: [
+					"assets/images/diasil-1.jpg",
+					"assets/images/diasil-2.jpg"
+				]
+			},
+			deskripsi: {
+				pendek: "Sampul buku Yasin hardcover bahan fancy paper warna silver elegan.",
+				panjang: "Sampul buku Yasin dengan desain hardcover berbahan fancy paper premium yang memberikan tampilan mewah dan elegan. Dilengkapi lafadz Allah poli embos dengan lapisan mika plastik sehingga terlihat mengkilap dan lebih awet. Cocok digunakan untuk buku Yasin, tahlilan, maupun kenang-kenangan."
+			},
+			harga: {
+				normal: 3200,
+				diskon: 3000
+			},
+			penjualan: {
+				terjual: 125,
+				rating: 4.6
+			},
+			stok: 200,
+			varian: {
+				tipe: [
+					{
+						kode: "PS",
+						nama: "Punggung Standar (PS)",
+						deskripsi: "Untuk buku 192–240 halaman (±1 cm)",
+						hargaTambahan: 0
+					},
+					{
+						kode: "PK",
+						nama: "Punggung Kecil (PK)",
+						deskripsi: "Untuk buku 128–180 halaman (±0.7 cm)",
+						hargaTambahan: 0
+					}
+				]
+			},
+			unggulan: true,
+			tags: [
+				"yasin",
+				"hardcover",
+				"diamond",
+				"silver"
+			]
+		}
+
     ],
 
     /**
