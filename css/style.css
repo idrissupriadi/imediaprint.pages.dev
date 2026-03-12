@@ -393,8 +393,9 @@ img{
 	/* Product Grid */
 	.product-grid{
 		display:grid;
-		grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-		gap:2rem;
+		max-width: 1200px;
+		grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+		gap:1.5rem;
 		margin-bottom:3rem;
 	}
 	
@@ -767,7 +768,7 @@ img{
 		align-items: center;
 		justify-content: center;
 		margin: 0 auto 1rem;
-		color: white;
+		color: blue;
 		font-size: 1.8rem;
 	}
 	
