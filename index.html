@@ -73,55 +73,57 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-grid">
-            <div class="hero-image">
-                <a href="products.html">
-                    <img src="assets/images/gambarhome1.jpg" alt="Hard cover bludru berkualitas Inti Media Printing" onerror="this.src='assets/images/default-product.jpg'">
-                </a>
-            </div>
+		<div class="container">
+			<div class="hero-grid">
+				<div class="hero-image">
+					<a href="products.html">
+						<img src="assets/images/gambarhome1.jpg" alt="Hard cover bludru berkualitas Inti Media Printing" onerror="this.src='assets/images/default-product.jpg'">
+					</a>
+				</div>
 
-            <div class="hero-features">
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3 class="feature-title">Harga Terbaik</h3>
-                    <p class="feature-description">Harga distributor langsung dari pabrik, tanpa biaya tambahan</p>
-                </div>
+				<div class="hero-features">
+					<div class="feature-card">
+						<div class="feature-icon">💰</div>
+						<h3 class="feature-title">Harga Terbaik</h3>
+						<p class="feature-description">Harga distributor langsung dari pabrik, tanpa biaya tambahan</p>
+					</div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">🚚</div>
-                    <h3 class="feature-title">Pengiriman Cepat</h3>
-                    <p class="feature-description">Pengiriman ke seluruh Indonesia dengan jasa ekspedisi terpercaya</p>
-                </div>
+					<div class="feature-card">
+						<div class="feature-icon">🚚</div>
+						<h3 class="feature-title">Pengiriman Cepat</h3>
+						<p class="feature-description">Pengiriman ke seluruh Indonesia dengan jasa ekspedisi terpercaya</p>
+					</div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3 class="feature-title">Support Cepat</h3>
-                    <p class="feature-description">Respon cepat via WhatsApp untuk konsultasi dan order</p>
-                </div>
-            </div>
-        </div>
+					<div class="feature-card">
+						<div class="feature-icon">⚡</div>
+						<h3 class="feature-title">Support Cepat</h3>
+						<p class="feature-description">Respon cepat via WhatsApp untuk konsultasi dan order</p>
+					</div>
+				</div>
+			</div>
+		</div>
     </section>
 
     <!-- Stats Section -->
     <section class="stats">
         <div class="stat-item">
-            <h3>10.000+</h3>
-            <p>Units Delivered</p>
+            <h3>100.000+</h3>
+            <p>Produk Terjual</p>
         </div>
         <div class="stat-item">
             <h3>500+</h3>
-            <p>Trusted Partners</p>
+            <p>Partner Terhubung</p>
         </div>
         <div class="stat-item">
             <h3>10+</h3>
-            <p>Years of Craftsmanship</p>
+            <p>Tahun Pengalaman Kami</p>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta">
         <div class="cta-inner">
-            <h2>Elevate Your Collection</h2>
+            <h2>Mulai Belanja</h2>
             <p>Produk hardcover premium dengan standar kualitas terbaik untuk kebutuhan percetakan Anda.</p>
             <a href="products.html" class="cta-btn">Lihat Semua Produk</a>
         </div>
@@ -132,9 +134,29 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <footer>
-        <p>© 2026 Inti Media Printing - All Rights Reserved</p>
-    </footer>
+	<footer class="footer-atas">
+
+		<div class="container">
+
+			<div class="footer-left">
+				<span>Percetakan Inti Media</span>
+				<span>Perum Puri Lestari Blok F36 No.16</span>
+				<span>Sukajaya - Cibitung</span>
+				<span>Whatsapp : 0822 1130 6022</span>
+				<span>Website : imedia.id</span>
+			</div>
+
+			<div class="footer-right">
+				<img src="assets/images/ekspedisi.png" alt="Ekspedisi">
+			</div>
+
+		</div>
+
+	</footer>
+
+	<footer class="footer-bawah">
+		© 2026 Inti Media Printing - All Rights Reserved
+	</footer>
 
     <script src="js/products.js"></script>
     <script src="js/cart.js"></script>
@@ -271,7 +293,7 @@
 					});
 				});
 			}
-			
+
 			// Fix untuk input di mobile
 			const searchInput = document.getElementById('searchInputHome');
 			if (searchInput) {
@@ -282,22 +304,13 @@
 					}, 300);
 				});
 			}
-			
-			// Fix untuk touch events
-			const buttons = document.querySelectorAll('button, .product-card, .feature-card');
-			buttons.forEach(button => {
-				button.addEventListener('touchstart', function(e) {
-					// Prevent double tap zoom on buttons
-					e.preventDefault();
-				}, { passive: false });
-			});
-			
+
 			// Fix untuk 100vh di mobile (mengatasi masalah address bar)
 			const setVh = () => {
 				const vh = window.innerHeight * 0.01;
 				document.documentElement.style.setProperty('--vh', `${vh}px`);
 			};
-			
+
 			setVh();
 			window.addEventListener('resize', setVh);
 		});

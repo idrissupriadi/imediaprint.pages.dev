@@ -26,8 +26,8 @@ const Products = {
 				diskon: null
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 944,
+				rating: 4.5
 			},
 			stok: 200,
 			varian: {
@@ -75,8 +75,8 @@ const Products = {
 				diskon: null
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 8200,
+				rating: 4.7
 			},
 			stok: 200,
 			varian: {
@@ -124,7 +124,7 @@ const Products = {
 				diskon: 3800
 			},
 			penjualan: {
-				terjual: 125,
+				terjual: 3400,
 				rating: 4.6
 			},
 			stok: 200,
@@ -173,8 +173,8 @@ const Products = {
 				diskon: 3800
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 7700,
+				rating: 4.8
 			},
 			stok: 200,
 			varian: {
@@ -222,7 +222,7 @@ const Products = {
 				diskon: 3800
 			},
 			penjualan: {
-				terjual: 125,
+				terjual: 7400,
 				rating: 4.6
 			},
 			stok: 200,
@@ -271,8 +271,8 @@ const Products = {
 				diskon: 3800
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 1700,
+				rating: 4.9
 			},
 			stok: 200,
 			varian: {
@@ -320,8 +320,8 @@ const Products = {
 				diskon: null
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 3500,
+				rating: 4.5
 			},
 			stok: 200,
 			varian: {
@@ -369,8 +369,8 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 21100,
+				rating: 4.9
 			},
 			stok: 200,
 			varian: {
@@ -418,8 +418,8 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 5200,
+				rating: 4.8
 			},
 			stok: 200,
 			varian: {
@@ -467,8 +467,8 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 8400,
+				rating: 4.7
 			},
 			stok: 200,
 			varian: {
@@ -516,7 +516,7 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
+				terjual: 8000,
 				rating: 4.6
 			},
 			stok: 200,
@@ -565,8 +565,8 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 42300,
+				rating: 4.9
 			},
 			stok: 200,
 			varian: {
@@ -614,7 +614,7 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
+				terjual: 2700,
 				rating: 4.6
 			},
 			stok: 200,
@@ -663,8 +663,8 @@ const Products = {
 				diskon: 3300
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 3064,
+				rating: 4.5
 			},
 			stok: 200,
 			varian: {
@@ -712,8 +712,8 @@ const Products = {
 				diskon: 3300
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 4100,
+				rating: 4.7
 			},
 			stok: 200,
 			varian: {
@@ -761,8 +761,8 @@ const Products = {
 				diskon: 3300
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 4200,
+				rating: 4.9
 			},
 			stok: 200,
 			varian: {
@@ -810,7 +810,7 @@ const Products = {
 				diskon: 3300
 			},
 			penjualan: {
-				terjual: 125,
+				terjual: 525,
 				rating: 4.6
 			},
 			stok: 200,
@@ -859,8 +859,8 @@ const Products = {
 				diskon: null
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 925,
+				rating: 4.5
 			},
 			stok: 200,
 			varian: {
@@ -908,7 +908,7 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
+				terjual: 3000,
 				rating: 4.6
 			},
 			stok: 200,
@@ -957,8 +957,8 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 1300,
+				rating: 4.7
 			},
 			stok: 200,
 			varian: {
@@ -1006,8 +1006,8 @@ const Products = {
 				diskon: 3300
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 4300,
+				rating: 4.8
 			},
 			stok: 200,
 			varian: {
@@ -1055,8 +1055,8 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 3300,
+				rating: 4.5
 			},
 			stok: 200,
 			varian: {
@@ -1104,8 +1104,8 @@ const Products = {
 				diskon: null
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 11500,
+				rating: 4.9
 			},
 			stok: 200,
 			varian: {
@@ -1153,8 +1153,8 @@ const Products = {
 				diskon: 3000
 			},
 			penjualan: {
-				terjual: 125,
-				rating: 4.6
+				terjual: 6300,
+				rating: 4.7
 			},
 			stok: 200,
 			varian: {

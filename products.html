@@ -65,452 +65,535 @@
 	</nav>
 
     <div class="container">
-        <!-- Filter Options -->
-		<div class="filter-options-bar">
-			<select id="sortSelect" onchange="filterProducts()">
-				<option value="default">Urutkan</option>
-				<option value="termurah">Termurah</option>
-				<option value="termahal">Termahal</option>
-				<option value="terlaris">Terlaris</option>
-				<option value="rating">Rating Tertinggi</option>
-			</select>
-			
-			<select id="kategoriSelect" onchange="filterProducts()">
-				<option value="all">Semua Kategori</option>
-				<option value="Hard Cover Bludru">Hard Cover Bludru</option>
-				<option value="Hard Cover Glossy">Hard Cover Glossy</option>
-				<option value="Hard Cover Diamond">Hard Cover Diamond</option>
-				<option value="Hard Cover RCP">Hard Cover RCP</option>
-			</select>
-			
-			<select id="varianSelect" onchange="filterProducts()">
-				<option value="all">Semua Tipe</option>
-				<option value="PS">Punggung Standar (PS)</option>
-				<option value="PK">Punggung Kecil (PK)</option>
-			</select>
-			
-			<button class="btn-reset-filter" onclick="resetFilters()" style="margin-left: auto;">
-				<i class="fas fa-redo-alt"></i> Reset
-			</button>
+
+		<div class="shop-layout">
+
+			<!-- SIDEBAR KATEGORI -->
+			<aside class="shop-sidebar">
+
+				<h3 class="sidebar-title">Kategori</h3>
+
+				<ul class="kategori-list">
+					<li onclick="setKategori('all')" class="active">Semua Produk</li>
+					<li onclick="setKategori('Hard Cover Bludru')">Hard Cover Bludru</li>
+					<li onclick="setKategori('Hard Cover Glossy')">Hard Cover Glossy</li>
+					<li onclick="setKategori('Hard Cover RCP')">Hard Cover RCP</li>
+					<li onclick="setKategori('Hard Cover IM')">Hard Cover IM</li>
+					<li onclick="setKategori('Cetak Yasin')">Cetak Yasin</li>
+					<li onclick="setKategori('Lainnya')">Lainnya</li>
+				</ul>
+
+			</aside>
+
+
+			<!-- AREA PRODUK -->
+			<div class="shop-products">
+
+				<!-- SORT BAR -->
+				<div class="sort-bar">
+
+					<div class="sort-left">
+						<span class="sort-label">Urutkan:</span>
+
+						<button onclick="setSort('populer')">Populer</button>
+						<button onclick="setSort('terbaru')">Terbaru</button>
+						<button onclick="setSort('terlaris')">Terlaris</button>
+						<div class="sort-dropdown">
+
+							<button class="sort-btn">
+								Harga <i class="fas fa-chevron-down"></i>
+							</button>
+
+							<div class="sort-dropdown-menu">
+								<div onclick="setSort('termurah')">Harga: Rendah ke Tinggi</div>
+								<div onclick="setSort('termahal')">Harga: Tinggi ke Rendah</div>
+							</div>
+
+						</div>
+					</div>
+
+					<!-- PAGINATION ATAS -->
+					<div class="pagination-container" id="paginationContainer1"></div>
+
+				</div>
+
+				<!-- PRODUCT GRID -->
+				<div class="product-grid" id="productGrid"></div>
+
+				<!-- PAGINATION BAWAH -->
+				<div class="pagination-container" id="paginationContainer2"></div>
+
+			</div>
+
 		</div>
 
-        <!-- Product Info -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <div id="productCount" class="product-count"></div>
-            <div id="activeFilters" class="active-filters"></div>
-        </div>
-
-        <!-- Product Grid -->
-        <div class="product-grid" id="productGrid"></div>
-        
-        <!-- Load More Button -->
-        <div class="load-more-container" id="loadMoreContainer">
-            <button class="btn-load-more" id="loadMoreBtn" onclick="loadMore()">
-                <i class="fas fa-sync-alt"></i> Tampilkan Lebih Banyak
-            </button>
-        </div>
     </div>
 
-    <footer>
-        <p>© 2026 Inti Media Printing - All Rights Reserved</p>
-    </footer>
+	<footer class="footer-atas">
+
+		<div class="container">
+
+			<div class="footer-left">
+				<span>Percetakan Inti Media</span>
+				<span>Perum Puri Lestari Blok F36 No.16</span>
+				<span>Sukajaya - Cibitung</span>
+				<span>Whatsapp : 0822 1130 6022</span>
+				<span>Website : imedia.id</span>
+			</div>
+
+			<div class="footer-right">
+				<img src="assets/images/ekspedisi.png" alt="Ekspedisi">
+			</div>
+
+		</div>
+
+	</footer>
+
+	<footer class="footer-bawah">
+		© 2026 Inti Media Printing - All Rights Reserved
+	</footer>
 
     <script src="js/products.js"></script>
     <script src="js/cart.js"></script>
-    <script>
-		let allProducts = [];
-		let filteredProducts = [];
-		let currentPage = 1;
-		const productsPerPage = 12;
+	<script>
 
-		// Ambil parameter dari URL
-		function getUrlParams() {
-			const urlParams = new URLSearchParams(window.location.search);
-			return {
-				search: urlParams.get('search') || '',
-				kategori: urlParams.get('kategori') || 'all',
-				sort: urlParams.get('sort') || 'default',
-				varian: urlParams.get('varian') || 'all'
-			};
+	let allProducts = [];
+	let filteredProducts = [];
+
+	let currentPage = 1;
+	const productsPerPage = 12;
+
+	let currentKategori = "all";
+	let currentSort = "default";
+
+
+	/* ================================
+	URL PARAMS
+	================================ */
+
+	function getUrlParams(){
+	const urlParams = new URLSearchParams(window.location.search);
+
+	return{
+	search: urlParams.get('search') || '',
+	kategori: urlParams.get('kategori') || 'all',
+	sort: urlParams.get('sort') || 'default'
+	};
+
+	}
+
+
+	function setKategori(kategori){
+
+	currentKategori = kategori;
+
+	document.querySelectorAll(".kategori-list li").forEach(li=>{
+	li.classList.remove("active");
+	});
+
+	event.target.classList.add("active");
+
+	filterProducts();
+
+	}
+
+	function setSort(sort){
+
+	currentSort = sort;
+
+	document.querySelectorAll(".sort-bar button").forEach(btn=>{
+	btn.classList.remove("active");
+	});
+
+	event.target.classList.add("active");
+
+	filterProducts();
+	}
+
+	/* ================================
+	FILTER PRODUCTS
+	================================ */
+
+	function filterProducts(){
+
+	const searchInputHome = document.getElementById('searchInputHome');
+	const search = searchInputHome ? searchInputHome.value.toLowerCase() : "";
+
+	const kategori = currentKategori;
+	const sort = currentSort;
+
+	const url = new URL(window.location);
+	url.searchParams.set('search',search);
+	window.history.pushState({},'',url);
+
+
+	filteredProducts = allProducts.filter(p=>{
+
+	const matchSearch =
+	search==="" ||
+	p.nama.toLowerCase().includes(search) ||
+	(p.deskripsi?.pendek || "").toLowerCase().includes(search) ||
+	(p.deskripsi?.panjang || "").toLowerCase().includes(search);
+
+	const matchKategori = kategori==="all" || p.kategori===kategori;
+
+	return matchSearch && matchKategori;
+
+	});
+
+
+	switch(sort){
+
+	case "populer":
+	filteredProducts.sort((a,b)=>
+	(b.penjualan?.rating || 0) - (a.penjualan?.rating || 0)
+	);
+	break;
+
+	case "terbaru":
+	filteredProducts.sort((a,b)=>
+	(b.id || 0) - (a.id || 0)
+	);
+	break;
+
+	case "termurah":
+	filteredProducts.sort((a,b)=>
+	(a.harga?.diskon || a.harga?.normal || 0) -
+	(b.harga?.diskon || b.harga?.normal || 0)
+	);
+	break;
+
+	case "termahal":
+	filteredProducts.sort((a,b)=>
+	(b.harga?.diskon || b.harga?.normal || 0) -
+	(a.harga?.diskon || a.harga?.normal || 0)
+	);
+	break;
+
+	case "terlaris":
+	filteredProducts.sort((a,b)=>
+	(b.penjualan?.terjual || 0) - (a.penjualan?.terjual || 0)
+	);
+	break;
+
+	default:
+	filteredProducts.sort((a,b)=>(a.id || 0) - (b.id || 0));
+
+	}
+
+	currentPage = 1;
+
+	displayProducts();
+	updateActiveFilters();
+
+	}
+
+
+
+
+	/* ================================
+	ACTIVE FILTERS
+	================================ */
+
+	function updateActiveFilters(){
+
+	const params=getUrlParams();
+	const activeFilters=[];
+
+	if(params.search) activeFilters.push(`Pencarian: "${params.search}"`);
+	if(params.kategori!=="all") activeFilters.push(`Kategori: ${params.kategori}`);
+
+	const filterEl=document.getElementById('activeFilters');
+
+	if(!filterEl) return;
+
+	if(activeFilters.length>0){
+
+	filterEl.innerHTML=`
+	<div style="display:flex;gap:10px;flex-wrap:wrap;">
+	${activeFilters.map(f=>`
+	<span style="background:var(--light);padding:5px 10px;border-radius:5px;font-size:0.9rem;">
+	<i class="fas fa-filter"></i> ${f}
+	</span>
+	`).join("")}
+	</div>
+	`;
+
+	}else{
+
+	filterEl.innerHTML="";
+
+	}
+
+	}
+
+	/* ================================
+	FORMAT ANGKA KE K (RIBUAN)
+	================================ */
+
+	function formatNumberToK(num) {
+		if (!num) return 0;
+		
+		if (num >= 1000000) {
+			return (num / 1000000).toFixed(1) + 'jt';
+		} else if (num >= 1000) {
+			return (num / 1000).toFixed(0) + 'k';
+		} else {
+			return num.toString();
 		}
+	}
 
-		// Reset semua filter
-		function resetFilters() {
-			// Reset search input di navbar
-			const searchInputHome = document.getElementById('searchInputHome');
-			if (searchInputHome) {
-				searchInputHome.value = '';
-			}
-			
-			// Reset select options
-			const sortSelect = document.getElementById('sortSelect');
-			if (sortSelect) {
-				sortSelect.value = 'default';
-			}
-			
-			const kategoriSelect = document.getElementById('kategoriSelect');
-			if (kategoriSelect) {
-				kategoriSelect.value = 'all';
-			}
-			
-			const varianSelect = document.getElementById('varianSelect');
-			if (varianSelect) {
-				varianSelect.value = 'all';
-			}
-			
-			// Update URL - hapus semua parameter
-			const url = new URL(window.location);
-			url.search = '';
-			window.history.pushState({}, '', url);
-			
-			// Filter ulang
-			filterProducts();
-		}
+	/* ================================
+	DISPLAY PRODUCTS
+	================================ */
 
-		// Filter produk - menggunakan search dari navbar
-		function filterProducts() {
-			// Ambil nilai search dari navbar
-			const searchInputHome = document.getElementById('searchInputHome');
-			const search = searchInputHome ? searchInputHome.value.toLowerCase() : '';
-			
-			const kategori = document.getElementById('kategoriSelect').value;
-			const varian = document.getElementById('varianSelect').value;
-			const sort = document.getElementById('sortSelect').value;
-			
-			// Update URL
-			const url = new URL(window.location);
-			url.searchParams.set('search', search);
-			url.searchParams.set('kategori', kategori);
-			url.searchParams.set('varian', varian);
-			url.searchParams.set('sort', sort);
-			window.history.pushState({}, '', url);
-			
-			// Filter berdasarkan pencarian
-			filteredProducts = allProducts.filter(p => {
-				const matchSearch = search === '' || 
-					p.nama.toLowerCase().includes(search) || 
-					(p.deskripsi?.pendek || '').toLowerCase().includes(search) ||
-					(p.deskripsi?.panjang || '').toLowerCase().includes(search);
-					
-				const matchKategori = kategori === 'all' || p.kategori === kategori;
-				const matchVarian = varian === 'all' || (p.varian?.tipe || []).some(t => t.kode === varian);
-				
-				return matchSearch && matchKategori && matchVarian;
-			});
-			
-			// Sorting
-			switch(sort) {
-				case 'termurah':
-					filteredProducts.sort((a, b) => (a.harga?.diskon || a.harga?.normal || 0) - (b.harga?.diskon || b.harga?.normal || 0));
-					break;
-				case 'termahal':
-					filteredProducts.sort((a, b) => (b.harga?.diskon || b.harga?.normal || 0) - (a.harga?.diskon || a.harga?.normal || 0));
-					break;
-				case 'terlaris':
-					filteredProducts.sort((a, b) => (b.penjualan?.terjual || 0) - (a.penjualan?.terjual || 0));
-					break;
-				case 'rating':
-					filteredProducts.sort((a, b) => (b.penjualan?.rating || 0) - (a.penjualan?.rating || 0));
-					break;
-				default:
-					filteredProducts.sort((a, b) => (a.id || 0) - (b.id || 0));
-			}
-			
-			currentPage = 1;
-			displayProducts();
-			updateProductCount();
-			updateActiveFilters();
-		}
+	function displayProducts(){
 
-		// Update jumlah produk yang ditampilkan
-		function updateProductCount() {
-			const countEl = document.getElementById('productCount');
-			if (countEl) {
-				countEl.innerHTML = `<i class="fas fa-box"></i> Menampilkan ${filteredProducts.length} produk`;
-			}
-		}
+	const grid=document.getElementById("productGrid");
 
-		// Update active filters display
-		function updateActiveFilters() {
-			const params = getUrlParams();
-			const activeFilters = [];
-			
-			if (params.search) activeFilters.push(`Pencarian: "${params.search}"`);
-			if (params.kategori !== 'all') activeFilters.push(`Kategori: ${params.kategori}`);
-			if (params.varian !== 'all') {
-				const varianName = params.varian === 'PS' ? 'Punggung Standar' : 'Punggung Kecil';
-				activeFilters.push(`Tipe: ${varianName}`);
-			}
-			
-			const filterEl = document.getElementById('activeFilters');
-			if (filterEl) {
-				if (activeFilters.length > 0) {
-					filterEl.innerHTML = `
-						<div style="display: flex; gap: 10px; flex-wrap: wrap;">
-							${activeFilters.map(filter => `
-								<span style="background: var(--light); padding: 5px 10px; border-radius: 5px; font-size: 0.9rem;">
-									<i class="fas fa-filter"></i> ${filter}
-								</span>
-							`).join('')}
-						</div>
-					`;
-				} else {
-					filterEl.innerHTML = '';
-				}
-			}
-		}
+	const start=(currentPage-1)*productsPerPage;
+	const end=start+productsPerPage;
 
-		// Tampilkan produk
-		function displayProducts() {
-			const grid = document.getElementById('productGrid');
-			const loadMoreBtn = document.getElementById('loadMoreBtn');
-			const loadMoreContainer = document.getElementById('loadMoreContainer');
-			
-			const start = 0;
-			const end = currentPage * productsPerPage;
-			const productsToShow = filteredProducts.slice(start, end);
-			
-			if (filteredProducts.length === 0) {
-				grid.innerHTML = `
-					<div class="empty-state">
-						<i class="fas fa-search"></i>
-						<h3>Tidak Ada Produk</h3>
-						<p>Maaf, tidak ada produk yang sesuai dengan filter yang Anda pilih.</p>
-						<button class="btn-reset-filter" onclick="resetFilters()">
-							<i class="fas fa-redo-alt"></i> Reset Filter
-						</button>
-					</div>
-				`;
-				if (loadMoreContainer) loadMoreContainer.style.display = 'none';
-				return;
-			}
-			
-			if (loadMoreContainer) {
-				loadMoreContainer.style.display = end >= filteredProducts.length ? 'none' : 'block';
-			}
-			
-			grid.innerHTML = productsToShow.map(p => {
-				const harga = p.harga?.diskon || p.harga?.normal || 0;
-				const diskon = p.harga?.diskon ? Math.round((1 - p.harga.diskon/p.harga.normal) * 100) : 0;
-				
-				return `
-				<div class="product-card" onclick="window.location.href='productdetail.html?id=${p.id}'">
-					<img src="${p.gambar?.utama || 'assets/images/default-product.jpg'}" alt="${p.nama}" class="product-image" onerror="this.src='assets/images/default-product.jpg'">
-					${diskon > 0 ? `<span class="discount-badge">-${diskon}%</span>` : ''}
-					<div class="product-info">
-						<h3 class="product-title">${p.nama || 'Produk'}</h3>
-						<div class="product-price">
-							Rp ${harga.toLocaleString('id-ID')}
-						</div>
-						<div class="product-meta">
-							<div class="product-rating">
-								<i class="fas fa-star"></i>
-								<span>${p.penjualan?.rating || 4.8}</span>
-							</div>
-							<div class="product-sold">
-								${p.penjualan?.terjual || 0} terjual
-							</div>
-						</div>
-						<div class="varian-tags">
-							${(p.varian?.tipe || []).map(t => `<span class="varian-tag">${t.nama || t.kode}</span>`).join('')}
-						</div>
-					</div>
-				</div>
-			`}).join('');
-		}
+	const productsToShow=filteredProducts.slice(start,end);
 
-		// Load more products
-		function loadMore() {
-			currentPage++;
-			displayProducts();
-		}
 
-		// Search function untuk navbar
-		function searchProducts() {
-			const searchInput = document.getElementById('searchInputHome');
-			const query = searchInput ? searchInput.value.trim() : '';
-			
-			if (query) {
-				// Pindah ke halaman products dengan parameter search
-				window.location.href = `products.html?search=${encodeURIComponent(query)}`;
-			} else {
-				window.location.href = 'products.html';
-			}
-		}
+	if(filteredProducts.length===0){
 
-		// Function untuk memfilter dari URL parameter saat halaman dimuat
-		function applyFiltersFromUrl() {
-			const params = getUrlParams();
-			
-			// Set nilai input search di navbar
-			const searchInputHome = document.getElementById('searchInputHome');
-			if (searchInputHome) {
-				searchInputHome.value = params.search || '';
-			}
-			
-			// Set nilai select options
-			const sortSelect = document.getElementById('sortSelect');
-			if (sortSelect) {
-				sortSelect.value = params.sort || 'default';
-			}
-			
-			const kategoriSelect = document.getElementById('kategoriSelect');
-			if (kategoriSelect) {
-				kategoriSelect.value = params.kategori || 'all';
-			}
-			
-			const varianSelect = document.getElementById('varianSelect');
-			if (varianSelect) {
-				varianSelect.value = params.varian || 'all';
-			}
-		}
+	grid.innerHTML=`
+	<div class="empty-state">
+	<i class="fas fa-search"></i>
+	<h3>Tidak Ada Produk</h3>
+	<p>Maaf produk tidak ditemukan</p>
+	<button class="btn-reset-filter" onclick="resetFilters()">
+	<i class="fas fa-redo-alt"></i> Reset Filter
+	</button>
+	</div>
+	`;
 
-		// Initialize
-		function init() {
-			if (typeof Products === 'undefined' || !Products.getAll) {
-				console.error('Products object tidak ditemukan!');
-				return;
-			}
-			
-			allProducts = Products.getAll();
-			applyFiltersFromUrl(); // Terapkan filter dari URL
-			filterProducts(); // Filter produk
-			
-			// Update cart count
-			if (typeof cart !== 'undefined') {
-				cart.updateCount();
-			}
-		}
+	return;
 
-		// Panggil init di DOMContentLoaded
-		document.addEventListener('DOMContentLoaded', function() {
-			init(); // Panggil init dulu
-			
-			// ===== CART FUNCTIONALITY =====
-			// Cart icon click
-			const cartIcon = document.getElementById('cartIcon');
-			if (cartIcon) {
-				cartIcon.addEventListener('click', function(e) {
-					e.stopPropagation();
-					window.location.href = 'checkout.html';
-				});
-			}
-			
-			// ===== SEARCH FUNCTIONALITY =====
-			// Search enter key untuk input di navbar
-			const searchInputHome = document.getElementById('searchInputHome');
-			if (searchInputHome) {
-				searchInputHome.addEventListener('keypress', function(e) {
-					if (e.key === 'Enter') {
-						searchProducts();
-					}
-				});
-				
-				// Fix untuk input di mobile (scroll saat focus)
-				searchInputHome.addEventListener('focus', function() {
-					setTimeout(() => {
-						this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-					}, 300);
-				});
-			}
-			
-			// ===== MOBILE MENU TOGGLE =====
-			const mobileToggle = document.getElementById('mobileMenuToggle');
-			const navMenu = document.getElementById('navMenu');
-			
-			if (mobileToggle && navMenu) {
-				mobileToggle.addEventListener('click', function(e) {
-					e.stopPropagation();
-					navMenu.classList.toggle('active');
-					
-					// Animate hamburger to X
-					const spans = this.children;
-					if (navMenu.classList.contains('active')) {
-						spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-						spans[1].style.opacity = '0';
-						spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
-					} else {
-						spans[0].style.transform = 'none';
-						spans[1].style.opacity = '1';
-						spans[2].style.transform = 'none';
-					}
-				});
-				
-				// Prevent closing when clicking inside menu
-				navMenu.addEventListener('click', function(e) {
-					e.stopPropagation();
-				});
-				
-				// Close menu when clicking outside
-				document.addEventListener('click', function(event) {
-					if (navMenu.classList.contains('active') && 
-						!navMenu.contains(event.target) && 
-						!mobileToggle.contains(event.target)) {
-						navMenu.classList.remove('active');
-						const spans = mobileToggle.children;
-						spans[0].style.transform = 'none';
-						spans[1].style.opacity = '1';
-						spans[2].style.transform = 'none';
-					}
-				});
-				
-				// Close menu when clicking a link
-				navMenu.querySelectorAll('a').forEach(link => {
-					link.addEventListener('click', function() {
-						navMenu.classList.remove('active');
-						const spans = mobileToggle.children;
-						spans[0].style.transform = 'none';
-						spans[1].style.opacity = '1';
-						spans[2].style.transform = 'none';
-					});
-				});
-			}
-			
-			// ===== RESIZE HANDLER (SATU SAJA) =====
-			window.addEventListener('resize', function() {
-				// Untuk mobile menu
-				if (window.innerWidth > 768) {
-					const navMenu = document.getElementById('navMenu');
-					const mobileToggle = document.getElementById('mobileMenuToggle');
-					
-					if (navMenu && navMenu.classList.contains('active')) {
-						navMenu.classList.remove('active');
-						
-						if (mobileToggle) {
-							const spans = mobileToggle.children;
-							spans[0].style.transform = 'none';
-							spans[1].style.opacity = '1';
-							spans[2].style.transform = 'none';
-						}
-					}
-				}
-				
-				// Untuk VH fix
-				const vh = window.innerHeight * 0.01;
-				document.documentElement.style.setProperty('--vh', `${vh}px`);
-			});
-			
-			// ===== TOUCH EVENT FIX - VERSI LEBIH AMAN =====
-			// Hanya handle select element yang memang perlu
-			document.querySelectorAll('select').forEach(select => {
-				select.addEventListener('touchstart', function(e) {
-					// Untuk select di mobile, biarkan default behavior
-					// Tapi kita bisa mencegah double tap zoom
-					if (e.touches.length > 1) {
-						e.preventDefault();
-					}
-				}, { passive: false });
-			});
-			
-			// ===== VH FIX FOR MOBILE (INITIAL) =====
-			const setVh = () => {
-				const vh = window.innerHeight * 0.01;
-				document.documentElement.style.setProperty('--vh', `${vh}px`);
-			};
-			
-			setVh();
-			// TIDAK PERLU window.addEventListener('resize', setVh) lagi karena sudah di atas
-		});
-    </script>
+	}
+
+
+	grid.innerHTML=productsToShow.map(p=>{
+
+	const harga=p.harga?.diskon||p.harga?.normal||0;
+
+	const diskon=p.harga?.diskon ?
+	Math.round((1-p.harga.diskon/p.harga.normal)*100)
+	:0;
+
+	return `
+
+	<div class="product-card" onclick="window.location.href='productdetail.html?id=${p.id}'">
+
+	<img src="${p.gambar?.utama || 'assets/images/default-product.jpg'}"
+	class="product-image"
+	onerror="this.src='assets/images/default-product.jpg'">
+
+	${diskon>0?`<span class="discount-badge">-${diskon}%</span>`:""}
+
+	<div class="product-info">
+
+	<div class="producttitle-container">
+	<h3 class="product-title">${p.nama || "Produk"}</h3>
+	</div>
+
+	<div class="product-price">
+
+	${p.harga?.diskon ? `
+	<div class="price-old">
+	Rp ${p.harga.normal.toLocaleString('id-ID')}
+	</div>` : ""}
+
+	<div class="price-now">
+	Rp ${harga.toLocaleString('id-ID')}
+	</div>
+
+	</div>
+
+	<div class="product-meta">
+
+	<div class="product-rating">
+	<i class="fas fa-star"></i>
+	<span>${p.penjualan?.rating || 4.8}</span>
+	</div>
+
+	<div class="product-sold">
+	${formatNumberToK(p.penjualan?.terjual || 0)} terjual
+	</div>
+
+	</div>
+
+	</div>
+	</div>
+
+	`;
+
+	}).join("");
+
+	renderPagination();
+
+	}
+
+	/* ================================
+	PAGINATION
+	================================ */
+
+	function renderPagination(){
+
+	const containers = [
+	document.getElementById("paginationContainer1"),
+	document.getElementById("paginationContainer2")
+	];
+
+	const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+	if(totalPages <= 1){
+	containers.forEach(container=>{
+	if(container) container.innerHTML="";
+	});
+	return;
+	}
+
+	let html="";
+
+	/* PREVIOUS */
+
+	html += `
+	<button class="page-btn ${currentPage===1 ? "disabled" : ""}" onclick="prevPage()">
+	<i class="fas fa-chevron-left"></i>
+	</button>
+	`;
+
+	/* PAGE NUMBERS */
+
+	let startPage = Math.max(1, currentPage - 2);
+	let endPage = Math.min(totalPages, startPage + 4);
+
+	for(let i=startPage;i<=endPage;i++){
+
+	html += `
+	<button class="page-btn ${i===currentPage ? "active" : ""}" onclick="goToPage(${i})">
+	${i}
+	</button>
+	`;
+
+	}
+
+	/* NEXT */
+
+	html += `
+	<button class="page-btn ${currentPage===totalPages ? "disabled" : ""}" onclick="nextPage()">
+	<i class="fas fa-chevron-right"></i>
+	</button>
+	`;
+
+	/* TAMPILKAN DI ATAS DAN BAWAH */
+
+	containers.forEach(container=>{
+	if(container){
+	container.innerHTML = html;
+	}
+	});
+
+	}
+
+
+	function goToPage(page){
+
+	currentPage = page;
+
+	displayProducts();
+
+	window.scrollTo({
+	top:0,
+	behavior:"smooth"
+	});
+
+	}
+
+
+	function nextPage(){
+
+	const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+	if(currentPage < totalPages){
+	currentPage++;
+	goToPage(currentPage);
+	}
+
+	}
+
+
+	function prevPage(){
+
+	if(currentPage > 1){
+	currentPage--;
+	goToPage(currentPage);
+	}
+
+	}
+
+
+	/* ================================
+	SEARCH
+	================================ */
+
+	function searchProducts(){
+
+	const searchInput=document.getElementById("searchInputHome");
+	const query=searchInput ? searchInput.value.trim() : "";
+
+	if(query){
+	window.location.href=`products.html?search=${encodeURIComponent(query)}`;
+	}else{
+	window.location.href="products.html";
+	}
+
+	}
+
+
+	/* ================================
+	INIT
+	================================ */
+
+	function applyFiltersFromUrl(){
+
+	const params=getUrlParams();
+
+	const searchInputHome=document.getElementById("searchInputHome");
+	if(searchInputHome) searchInputHome.value=params.search;
+
+	}
+
+
+	function init(){
+
+	if(typeof Products==="undefined" || !Products.getAll){
+	console.error("Products object tidak ditemukan");
+	return;
+	}
+
+	allProducts = Products.getAll();
+
+	console.log("TOTAL PRODUK:", allProducts.length);
+
+	applyFiltersFromUrl();
+	filterProducts();
+
+	}
+
+	/* ================================
+	DOMContentLoaded
+	================================ */
+
+	document.addEventListener("DOMContentLoaded",function(){
+
+	init();
+
+	});
+
+	</script>
 </body>
 </html>
