@@ -620,5 +620,74 @@
 	});
 
 	</script>
+
+	<script>
+		// Mobile Menu Toggle
+		document.addEventListener('DOMContentLoaded', function() {
+			const mobileToggle = document.getElementById('mobileMenuToggle');
+			const navMenu = document.getElementById('navMenu');
+			
+			if (mobileToggle && navMenu) {
+				mobileToggle.addEventListener('click', function() {
+					navMenu.classList.toggle('active');
+					
+					// Animate hamburger to X
+					const spans = this.children;
+					if (navMenu.classList.contains('active')) {
+						spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+						spans[1].style.opacity = '0';
+						spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
+					} else {
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					}
+				});
+				
+				// Close menu when clicking outside
+				document.addEventListener('click', function(event) {
+					if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
+						navMenu.classList.remove('active');
+						const spans = mobileToggle.children;
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					}
+				});
+				
+				// Close menu when clicking a link
+				navMenu.querySelectorAll('a').forEach(link => {
+					link.addEventListener('click', function() {
+						navMenu.classList.remove('active');
+						const spans = mobileToggle.children;
+						spans[0].style.transform = 'none';
+						spans[1].style.opacity = '1';
+						spans[2].style.transform = 'none';
+					});
+				});
+			}
+
+			// Fix untuk input di mobile
+			const searchInput = document.getElementById('searchInputHome');
+			if (searchInput) {
+				searchInput.addEventListener('focus', function() {
+					// Scroll ke posisi yang tepat agar keyboard tidak menutupi input
+					setTimeout(() => {
+						this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+					}, 300);
+				});
+			}
+
+			// Fix untuk 100vh di mobile (mengatasi masalah address bar)
+			const setVh = () => {
+				const vh = window.innerHeight * 0.01;
+				document.documentElement.style.setProperty('--vh', `${vh}px`);
+			};
+
+			setVh();
+			window.addEventListener('resize', setVh);
+		});
+	</script>
+
 </body>
 </html>
