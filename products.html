@@ -437,6 +437,31 @@
 	}
 
 	/* ================================
+	FORMAT ANGKA KE FORMAT SINGKAT
+	================================ */
+
+	function formatNumberShort(num) {
+		if (!num) return '0';
+		
+		if (num >= 1000000000) {
+			return (num / 1000000000).toFixed(1) + 'M';
+		} else if (num >= 1000000) {
+			return (num / 1000000).toFixed(1) + 'JT';
+		} else if (num >= 1000) {
+			// Untuk 1000 ke atas, tampilkan dalam ribuan (k)
+			const ribuan = num / 1000;
+			// Jika desimal .0, tampilkan tanpa desimal
+			if (ribuan % 1 === 0) {
+				return ribuan.toFixed(0) + 'k';
+			} else {
+				return ribuan.toFixed(1) + 'k';
+			}
+		} else {
+			return num.toString();
+		}
+	}
+
+	/* ================================
 	PAGINATION
 	================================ */
 
